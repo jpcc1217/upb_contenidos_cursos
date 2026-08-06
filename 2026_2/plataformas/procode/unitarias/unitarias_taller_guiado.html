@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller guiado: CRUD completo con Spring Boot 4</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-light: #f8fafc;
+            --bg-surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #475569;
+            --header-bg: #0f172a;
+            --header-text: #f8fafc;
+            --code-bg: #1e1e2e;
+            --code-text: #cdd6f4;
+            --border: #e2e8f0;
+            --step-accent: #2563eb;
+            --toc-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        header h2 {
+            margin: 0.75rem 0 0;
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #94a3b8;
+        }
+
+        main {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 2rem 2.5rem;
+            background: var(--bg-surface);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border-radius: 12px;
+        }
+
+        h2, h3, h4 {
+            color: var(--text-main);
+        }
+
+        h2.step-title {
+            color: var(--step-accent);
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        p, ul, ol {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc {
+            background-color: var(--toc-bg);
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            margin: 1rem 0 2rem;
+            border: 1px solid var(--border);
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 0.5rem 1rem;
+        }
+        
+        .toc a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+            color: var(--primary-hover);
+        }
+
+        .code-container {
+            position: relative;
+            margin: 1.5rem 0;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.25rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #313244;
+            color: #a6adc8;
+            border: 1px solid #45475a;
+            border-radius: 4px;
+            padding: 0.35rem 0.75rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #45475a;
+            color: #ffffff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        th, td {
+            padding: 1rem;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--bg-light);
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .explanation {
+            background-color: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            color: #166534;
+        }
+        
+        .challenge {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .challenge h3 {
+            color: #b45309;
+            margin-top: 0;
+        }
+        
+        .challenge p {
+            color: #92400e;
+            margin-bottom: 0;
+        }
+
+        code {
+            background-color: #e2e8f0;
+            color: #0f172a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.85em;
+        }
+        
+        pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            
+            .toc ul {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Taller guiado: CRUD completo con Spring Boot 4</h1>
+    <h2>Profundización backend — Java 25, Lombok, relaciones JPA y PostgreSQL</h2>
+</header>
+
+<main>
+    <div class="toc">
+        <h3>Tabla de contenido</h3>
+        <ul>
+            <li><a href="#contexto">Contexto</a></li>
+            <li><a href="#paso-1">Paso 1: Configuración del proyecto</a></li>
+            <li><a href="#paso-2">Paso 2: Entidad Categoria con Lombok</a></li>
+            <li><a href="#paso-3">Paso 3: Entidad Medicamento con relación @ManyToOne</a></li>
+            <li><a href="#paso-4">Paso 4: Repositorios</a></li>
+            <li><a href="#paso-5">Paso 5: DTOs con records de Java 25 y Bean Validation</a></li>
+            <li><a href="#paso-6">Paso 6: Excepción personalizada y manejo global</a></li>
+            <li><a href="#paso-7">Paso 7: Servicio CategoriaService</a></li>
+            <li><a href="#paso-8">Paso 8: Servicio MedicamentoService — CRUD completo</a></li>
+            <li><a href="#paso-9">Paso 9: Controlador CategoriaController</a></li>
+            <li><a href="#paso-10">Paso 10: Controlador MedicamentoController — CRUD completo</a></li>
+            <li><a href="#paso-11">Paso 11: Carga de datos iniciales</a></li>
+            <li><a href="#verificacion">Verificación: Comandos curl</a></li>
+            <li><a href="#reto">Reto opcional</a></li>
+            <li><a href="#resumen">Resumen de arquitectura</a></li>
+        </ul>
+    </div>
+
+    <section id="contexto">
+        <h2 class="step-title">Contexto</h2>
+        <p>La farmacia "Salud y Vida" necesita expandir su sistema de inventario. El sistema actual solo permite listar y crear medicamentos. Se requiere:</p>
+        <ul>
+            <li>Clasificar medicamentos por categorías</li>
+            <li>Actualizar y eliminar medicamentos existentes</li>
+            <li>Validar datos de entrada</li>
+            <li>Manejar errores de forma profesional</li>
+            <li>Migrar a una base de datos real (PostgreSQL)</li>
+        </ul>
+    </section>
+
+    <section id="paso-1">
+        <h2 class="step-title">Paso 1: Configuración del proyecto</h2>
+        <p>Crear proyecto en Spring Initializr (start.spring.io):</p>
+        <ul>
+            <li><strong>Project:</strong> Gradle - Groovy</li>
+            <li><strong>Language:</strong> Java</li>
+            <li><strong>Spring Boot:</strong> 4.1.x</li>
+            <li><strong>Group:</strong> com.universidad</li>
+            <li><strong>Artifact:</strong> farmacia-api</li>
+            <li><strong>Java:</strong> 25</li>
+            <li><strong>Dependencies:</strong> Spring Web, Spring Data JPA, PostgreSQL Driver, Docker Compose Support, Lombok, Validation</li>
+        </ul>
+
+        <p>Crear archivo <code>compose.yaml</code> en la raíz del proyecto:</p>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code># /compose.yaml
+services:
+  postgres:
+    image: postgres:18-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: farmaciadb
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sa -d farmaciadb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5</code></pre>
+        </div>
+
+        <p>Configurar <code>src/main/resources/application.properties</code>:</p>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code># /src/main/resources/application.properties
+
+# PostgreSQL (spring-boot-docker-compose detecta compose.yaml automáticamente)
+spring.datasource.url=jdbc:postgresql://localhost:5432/farmaciadb
+spring.datasource.username=sa
+spring.datasource.password=password
+
+# JPA / Hibernate
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+# Virtual Threads
+spring.threads.virtual.enabled=true</code></pre>
+        </div>
+        
+        <p>Verificar con <code>./gradlew bootRun</code> (Docker debe estar en ejecución).</p>
+    </section>
+
+    <section id="paso-2">
+        <h2 class="step-title">Paso 2: Entidad Categoria con Lombok</h2>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/model/Categoria.java
+package com.universidad.farmacia.model;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Getter @Setter @NoArgsConstructor
+public class Categoria {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private String nombre;
+    private String descripcion;
+
+    public Categoria(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+}</code></pre>
+        </div>
+        <div class="explanation">Lombok genera automáticamente todos los getters, setters y el constructor vacío para evitar escribir boilerplate. Únicamente se define el constructor personalizado necesario.</div>
+    </section>
+
+    <section id="paso-3">
+        <h2 class="step-title">Paso 3: Entidad Medicamento con relación @ManyToOne</h2>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/model/Medicamento.java
+package com.universidad.farmacia.model;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Getter @Setter @NoArgsConstructor
+public class Medicamento {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private String nombre;
+    private double precio;
+    private int cantidadInventario;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
+    public Medicamento(String nombre, double precio, int cantidadInventario, Categoria categoria) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.cantidadInventario = cantidadInventario;
+        this.categoria = categoria;
+    }
+}</code></pre>
+        </div>
+        <div class="explanation">La anotación <code>@ManyToOne</code> indica que múltiples entidades <code>Medicamento</code> pertenecen a una sola <code>Categoria</code>. La configuración <code>LAZY</code> asegura que la categoría solo se cargue desde la base de datos cuando sea accedida explícitamente, optimizando el rendimiento.</div>
+    </section>
+
+    <section id="paso-4">
+        <h2 class="step-title">Paso 4: Repositorios</h2>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/repository/CategoriaRepository.java
+package com.universidad.farmacia.repository;
+
+import com.universidad.farmacia.model.Categoria;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CategoriaRepository extends JpaRepository&lt;Categoria, Long&gt; {
+}</code></pre>
+        </div>
+
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/repository/MedicamentoRepository.java
+package com.universidad.farmacia.repository;
+
+import com.universidad.farmacia.model.Medicamento;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MedicamentoRepository extends JpaRepository&lt;Medicamento, Long&gt; {
+}</code></pre>
+        </div>
+    </section>
+
+    <section id="paso-5">
+        <h2 class="step-title">Paso 5: DTOs con records de Java 25 y Bean Validation</h2>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/dto/CreateMedicamentoRequest.java
+package com.universidad.farmacia.dto;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+
+public record CreateMedicamentoRequest(
+    @NotBlank(message = "El nombre es obligatorio")
+    String nombre,
+    @Positive(message = "El precio debe ser mayor a cero")
+    double precio,
+    @Min(value = 0, message = "El inventario no puede ser negativo")
+    int cantidadInventario,
+    Long categoriaId
+) {}</code></pre>
+        </div>
+
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/dto/UpdateMedicamentoRequest.java
+package com.universidad.farmacia.dto;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+
+public record UpdateMedicamentoRequest(
+    @NotBlank(message = "El nombre es obligatorio")
+    String nombre,
+    @Positive(message = "El precio debe ser mayor a cero")
+    double precio,
+    @Min(value = 0, message = "El inventario no puede ser negativo")
+    int cantidadInventario,
+    Long categoriaId
+) {}</code></pre>
+        </div>
+
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/dto/MedicamentoResponse.java
+package com.universidad.farmacia.dto;
+
+public record MedicamentoResponse(
+    Long id,
+    String nombre,
+    double precio,
+    int cantidadInventario,
+    String categoriaNombre
+) {}</code></pre>
+        </div>
+
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/dto/CreateCategoriaRequest.java
+package com.universidad.farmacia.dto;
+
+import jakarta.validation.constraints.NotBlank;
+
+public record CreateCategoriaRequest(
+    @NotBlank(message = "El nombre de la categoría es obligatorio")
+    String nombre,
+    String descripcion
+) {}</code></pre>
+        </div>
+
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/dto/CategoriaResponse.java
+package com.universidad.farmacia.dto;
+
+public record CategoriaResponse(Long id, String nombre, String descripcion) {}</code></pre>
+        </div>
+        <div class="explanation">Los records introducidos en versiones recientes de Java definen DTOs inmutables de forma concisa. Las anotaciones de Bean Validation (<code>@NotBlank</code>, <code>@Positive</code>, <code>@Min</code>) permiten a Spring validar los datos automáticamente al recibir el payload en los endpoints, usando <code>@Valid</code>.</div>
+    </section>
+
+    <section id="paso-6">
+        <h2 class="step-title">Paso 6: Excepción personalizada y manejo global</h2>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/exception/ResourceNotFoundException.java
+package com.universidad.farmacia.exception;
+
+public class ResourceNotFoundException extends RuntimeException {
+    public ResourceNotFoundException(String recurso, Long id) {
+        super(recurso + " con ID " + id + " no fue encontrado");
+    }
+}</code></pre>
+        </div>
+
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/exception/GlobalExceptionHandler.java
+package com.universidad.farmacia.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.time.LocalDateTime;
+import java.util.stream.Collectors;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    record ErrorResponse(int status, String error, String message, String timestamp) {}
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity&lt;ErrorResponse&gt; handleNotFound(ResourceNotFoundException ex) {
+        var body = new ErrorResponse(
+            404, "Not Found", ex.getMessage(), LocalDateTime.now().toString()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity&lt;ErrorResponse&gt; handleValidation(MethodArgumentNotValidException ex) {
+        String mensaje = ex.getBindingResult().getFieldErrors().stream()
+            .map(e -&gt; e.getField() + ": " + e.getDefaultMessage())
+            .collect(Collectors.joining(", "));
+        var body = new ErrorResponse(
+            400, "Bad Request", mensaje, LocalDateTime.now().toString()
+        );
+        return ResponseEntity.badRequest().body(body);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity&lt;ErrorResponse&gt; handleIllegalArgument(IllegalArgumentException ex) {
+        var body = new ErrorResponse(
+            400, "Bad Request", ex.getMessage(), LocalDateTime.now().toString()
+        );
+        return ResponseEntity.badRequest().body(body);
+    }
+}</code></pre>
+        </div>
+        <div class="explanation">La anotación <code>@RestControllerAdvice</code> intercepta excepciones a nivel global en la API. El record <code>ErrorResponse</code> define el formato estándar de error. Cada <code>@ExceptionHandler</code> mapea un tipo de excepción a un estado HTTP específico, garantizando respuestas consistentes.</div>
+    </section>
+
+    <section id="paso-7">
+        <h2 class="step-title">Paso 7: Servicio CategoriaService</h2>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/service/CategoriaService.java
+package com.universidad.farmacia.service;
+
+import com.universidad.farmacia.dto.CategoriaResponse;
+import com.universidad.farmacia.dto.CreateCategoriaRequest;
+import com.universidad.farmacia.exception.ResourceNotFoundException;
+import com.universidad.farmacia.model.Categoria;
+import com.universidad.farmacia.repository.CategoriaRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class CategoriaService {
+
+    private final CategoriaRepository repository;
+
+    public CategoriaService(CategoriaRepository repository) {
+        this.repository = repository;
+    }
+
+    public List&lt;CategoriaResponse&gt; obtenerTodas() {
+        return repository.findAll().stream()
+            .map(c -&gt; new CategoriaResponse(c.getId(), c.getNombre(), c.getDescripcion()))
+            .toList();
+    }
+
+    public CategoriaResponse crear(CreateCategoriaRequest request) {
+        var categoria = new Categoria(request.nombre(), request.descripcion());
+        var saved = repository.save(categoria);
+        return new CategoriaResponse(saved.getId(), saved.getNombre(), saved.getDescripcion());
+    }
+
+    public Categoria buscarEntidadPorId(Long id) {
+        return repository.findById(id)
+            .orElseThrow(() -&gt; new ResourceNotFoundException("Categoría", id));
+    }
+}</code></pre>
+        </div>
+    </section>
+
+    <section id="paso-8">
+        <h2 class="step-title">Paso 8: Servicio MedicamentoService — CRUD completo</h2>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/service/MedicamentoService.java
+package com.universidad.farmacia.service;
+
+import com.universidad.farmacia.dto.CreateMedicamentoRequest;
+import com.universidad.farmacia.dto.MedicamentoResponse;
+import com.universidad.farmacia.dto.UpdateMedicamentoRequest;
+import com.universidad.farmacia.exception.ResourceNotFoundException;
+import com.universidad.farmacia.model.Categoria;
+import com.universidad.farmacia.model.Medicamento;
+import com.universidad.farmacia.repository.MedicamentoRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class MedicamentoService {
+
+    private final MedicamentoRepository repository;
+    private final CategoriaService categoriaService;
+
+    public MedicamentoService(MedicamentoRepository repository, CategoriaService categoriaService) {
+        this.repository = repository;
+        this.categoriaService = categoriaService;
+    }
+
+    public List&lt;MedicamentoResponse&gt; obtenerTodos() {
+        return repository.findAll().stream()
+            .map(this::toResponse)
+            .toList();
+    }
+
+    public MedicamentoResponse obtenerPorId(Long id) {
+        var med = repository.findById(id)
+            .orElseThrow(() -&gt; new ResourceNotFoundException("Medicamento", id));
+        return toResponse(med);
+    }
+
+    public MedicamentoResponse crear(CreateMedicamentoRequest request) {
+        Categoria categoria = null;
+        if (request.categoriaId() != null) {
+            categoria = categoriaService.buscarEntidadPorId(request.categoriaId());
+        }
+        var medicamento = new Medicamento(
+            request.nombre(), request.precio(), request.cantidadInventario(), categoria
+        );
+        return toResponse(repository.save(medicamento));
+    }
+
+    public MedicamentoResponse actualizar(Long id, UpdateMedicamentoRequest request) {
+        var existente = repository.findById(id)
+            .orElseThrow(() -&gt; new ResourceNotFoundException("Medicamento", id));
+
+        existente.setNombre(request.nombre());
+        existente.setPrecio(request.precio());
+        existente.setCantidadInventario(request.cantidadInventario());
+
+        if (request.categoriaId() != null) {
+            existente.setCategoria(categoriaService.buscarEntidadPorId(request.categoriaId()));
+        }
+
+        return toResponse(repository.save(existente));
+    }
+
+    public void eliminar(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Medicamento", id);
+        }
+        repository.deleteById(id);
+    }
+
+    private MedicamentoResponse toResponse(Medicamento m) {
+        return new MedicamentoResponse(
+            m.getId(), m.getNombre(), m.getPrecio(), m.getCantidadInventario(),
+            m.getCategoria() != null ? m.getCategoria().getNombre() : "Sin categoría"
+        );
+    }
+}</code></pre>
+        </div>
+    </section>
+
+    <section id="paso-9">
+        <h2 class="step-title">Paso 9: Controlador CategoriaController</h2>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/controller/CategoriaController.java
+package com.universidad.farmacia.controller;
+
+import com.universidad.farmacia.dto.CategoriaResponse;
+import com.universidad.farmacia.dto.CreateCategoriaRequest;
+import com.universidad.farmacia.service.CategoriaService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/categorias")
+public class CategoriaController {
+
+    private final CategoriaService service;
+
+    public CategoriaController(CategoriaService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List&lt;CategoriaResponse&gt; listarTodas() {
+        return service.obtenerTodas();
+    }
+
+    @PostMapping
+    public ResponseEntity&lt;CategoriaResponse&gt; crear(@Valid @RequestBody CreateCategoriaRequest request) {
+        var response = service.crear(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+}</code></pre>
+        </div>
+    </section>
+
+    <section id="paso-10">
+        <h2 class="step-title">Paso 10: Controlador MedicamentoController — CRUD completo</h2>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/controller/MedicamentoController.java
+package com.universidad.farmacia.controller;
+
+import com.universidad.farmacia.dto.CreateMedicamentoRequest;
+import com.universidad.farmacia.dto.MedicamentoResponse;
+import com.universidad.farmacia.dto.UpdateMedicamentoRequest;
+import com.universidad.farmacia.service.MedicamentoService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/medicamentos")
+public class MedicamentoController {
+
+    private final MedicamentoService service;
+
+    public MedicamentoController(MedicamentoService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List&lt;MedicamentoResponse&gt; listarTodos() {
+        return service.obtenerTodos();
+    }
+
+    @GetMapping("/{id}")
+    public MedicamentoResponse obtenerPorId(@PathVariable Long id) {
+        return service.obtenerPorId(id);
+    }
+
+    @PostMapping
+    public ResponseEntity&lt;MedicamentoResponse&gt; crear(@Valid @RequestBody CreateMedicamentoRequest request) {
+        var response = service.crear(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PutMapping("/{id}")
+    public MedicamentoResponse actualizar(@PathVariable Long id, @Valid @RequestBody UpdateMedicamentoRequest request) {
+        return service.actualizar(id, request);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id) {
+        service.eliminar(id);
+    }
+}</code></pre>
+        </div>
+    </section>
+
+    <section id="paso-11">
+        <h2 class="step-title">Paso 11: Carga de datos iniciales</h2>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code>// src/main/java/com/universidad/farmacia/config/DataLoader.java
+package com.universidad.farmacia.config;
+
+import com.universidad.farmacia.model.Categoria;
+import com.universidad.farmacia.model.Medicamento;
+import com.universidad.farmacia.repository.CategoriaRepository;
+import com.universidad.farmacia.repository.MedicamentoRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DataLoader implements CommandLineRunner {
+
+    private final CategoriaRepository categoriaRepository;
+    private final MedicamentoRepository medicamentoRepository;
+
+    public DataLoader(CategoriaRepository categoriaRepository, MedicamentoRepository medicamentoRepository) {
+        this.categoriaRepository = categoriaRepository;
+        this.medicamentoRepository = medicamentoRepository;
+    }
+
+    @Override
+    public void run(String... args) {
+        var analgesicos = categoriaRepository.save(new Categoria("Analgésicos", "Medicamentos para el dolor"));
+        var antibioticos = categoriaRepository.save(new Categoria("Antibióticos", "Medicamentos antiinfecciosos"));
+        var vitaminas = categoriaRepository.save(new Categoria("Vitaminas", "Suplementos vitamínicos"));
+
+        medicamentoRepository.save(new Medicamento("Paracetamol", 15.50, 100, analgesicos));
+        medicamentoRepository.save(new Medicamento("Ibuprofeno", 22.00, 80, analgesicos));
+        medicamentoRepository.save(new Medicamento("Amoxicilina", 45.00, 50, antibioticos));
+        medicamentoRepository.save(new Medicamento("Vitamina C", 12.00, 200, vitaminas));
+    }
+}</code></pre>
+        </div>
+    </section>
+
+    <section id="verificacion">
+        <h2 class="step-title">Verificación: Comandos curl</h2>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+<pre><code># 1. GET todas las categorías
+curl http://localhost:8080/api/categorias
+
+# 2. POST nueva categoría
+curl -X POST http://localhost:8080/api/categorias \
+-H "Content-Type: application/json" \
+-d '{"nombre": "Dermatológicos", "descripcion": "Para la piel"}'
+
+# 3. GET todos los medicamentos
+curl http://localhost:8080/api/medicamentos
+
+# 4. GET medicamento por ID
+curl http://localhost:8080/api/medicamentos/1
+
+# 5. POST nuevo medicamento con categoría
+curl -X POST http://localhost:8080/api/medicamentos \
+-H "Content-Type: application/json" \
+-d '{"nombre": "Loratadina", "precio": 18.00, "cantidadInventario": 60, "categoriaId": 1}'
+
+# 6. PUT actualizar medicamento
+curl -X PUT http://localhost:8080/api/medicamentos/1 \
+-H "Content-Type: application/json" \
+-d '{"nombre": "Paracetamol 500mg", "precio": 17.50, "cantidadInventario": 95, "categoriaId": 1}'
+
+# 7. DELETE eliminar medicamento
+curl -X DELETE http://localhost:8080/api/medicamentos/4
+
+# 8. GET verificar eliminación
+curl http://localhost:8080/api/medicamentos
+
+# 9. GET medicamento inexistente (debe retornar 404)
+curl -v http://localhost:8080/api/medicamentos/999
+
+# 10. POST con validación fallida
+curl -v -X POST http://localhost:8080/api/medicamentos \
+-H "Content-Type: application/json" \
+-d '{"nombre": "", "precio": -5, "cantidadInventario": -1, "categoriaId": 1}'</code></pre>
+        </div>
+    </section>
+
+    <section id="reto">
+        <h2 class="step-title">Reto opcional</h2>
+        <div class="challenge">
+            <h3>Búsqueda parcial</h3>
+            <p>Agregar un endpoint <code>GET /api/medicamentos/buscar?nombre=para</code> que busque medicamentos por nombre parcial. Pista: Crear un query method <code>findByNombreContainingIgnoreCase(String nombre)</code> en <code>MedicamentoRepository</code> y usar <code>@RequestParam</code> en el controlador.</p>
+        </div>
+    </section>
+
+    <section id="resumen">
+        <h2 class="step-title">Resumen de arquitectura</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Capa</th>
+                    <th>Paquete</th>
+                    <th>Clases</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Model</td>
+                    <td><code>model/</code></td>
+                    <td>Categoria, Medicamento</td>
+                </tr>
+                <tr>
+                    <td>Repository</td>
+                    <td><code>repository/</code></td>
+                    <td>CategoriaRepository, MedicamentoRepository</td>
+                </tr>
+                <tr>
+                    <td>DTO</td>
+                    <td><code>dto/</code></td>
+                    <td>Create/Update requests, Response records</td>
+                </tr>
+                <tr>
+                    <td>Service</td>
+                    <td><code>service/</code></td>
+                    <td>CategoriaService, MedicamentoService</td>
+                </tr>
+                <tr>
+                    <td>Controller</td>
+                    <td><code>controller/</code></td>
+                    <td>CategoriaController, MedicamentoController</td>
+                </tr>
+                <tr>
+                    <td>Exception</td>
+                    <td><code>exception/</code></td>
+                    <td>ResourceNotFoundException, GlobalExceptionHandler</td>
+                </tr>
+                <tr>
+                    <td>Config</td>
+                    <td><code>config/</code></td>
+                    <td>DataLoader</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<script>
+    function copyCode(button) {
+        const pre = button.nextElementSibling;
+        const code = pre.textContent;
+        
+        navigator.clipboard.writeText(code).then(() => {
+            const originalText = button.textContent;
+            button.textContent = '¡Copiado!';
+            button.style.backgroundColor = '#22c55e';
+            button.style.borderColor = '#16a34a';
+            button.style.color = '#ffffff';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.backgroundColor = '';
+                button.style.borderColor = '';
+                button.style.color = '';
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+    }
+</script>
+
+</body>
+</html>
