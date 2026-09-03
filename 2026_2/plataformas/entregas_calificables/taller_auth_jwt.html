@@ -2349,24 +2349,30 @@ window.Quarto = {
   <li><a href="#objetivo-y-contexto" id="toc-objetivo-y-contexto" class="nav-link active" data-scroll-target="#objetivo-y-contexto"><span class="header-section-number">1</span> Objetivo y Contexto</a></li>
   <li><a href="#reglas-generales-y-horario-de-entrega" id="toc-reglas-generales-y-horario-de-entrega" class="nav-link" data-scroll-target="#reglas-generales-y-horario-de-entrega"><span class="header-section-number">2</span> Reglas Generales y Horario de Entrega</a></li>
   <li><a href="#entorno-de-ejecución-y-compatibilidad-en-salas-de-cómputo" id="toc-entorno-de-ejecución-y-compatibilidad-en-salas-de-cómputo" class="nav-link" data-scroll-target="#entorno-de-ejecución-y-compatibilidad-en-salas-de-cómputo"><span class="header-section-number">3</span> Entorno de Ejecución y Compatibilidad en Salas de Cómputo</a></li>
-  <li><a href="#dominio-de-negocio-del-sistema-helpdesk-y-gestión-de-incidentes" id="toc-dominio-de-negocio-del-sistema-helpdesk-y-gestión-de-incidentes" class="nav-link" data-scroll-target="#dominio-de-negocio-del-sistema-helpdesk-y-gestión-de-incidentes"><span class="header-section-number">4</span> Dominio de Negocio del Sistema Helpdesk y Gestión de Incidentes</a>
+  <li><a href="#comportamiento-del-backend-antes-y-después-de-implementar-la-seguridad" id="toc-comportamiento-del-backend-antes-y-después-de-implementar-la-seguridad" class="nav-link" data-scroll-target="#comportamiento-del-backend-antes-y-después-de-implementar-la-seguridad"><span class="header-section-number">4</span> Comportamiento del backend antes y después de implementar la seguridad</a>
   <ul class="collapse">
-  <li><a href="#matriz-de-control-de-acceso-basado-en-roles-rbac" id="toc-matriz-de-control-de-acceso-basado-en-roles-rbac" class="nav-link" data-scroll-target="#matriz-de-control-de-acceso-basado-en-roles-rbac"><span class="header-section-number">4.1</span> Matriz de Control de Acceso Basado en Roles (RBAC)</a></li>
+  <li><a href="#qué-puedes-probar-con-el-código-base-inicial-src_base" id="toc-qué-puedes-probar-con-el-código-base-inicial-src_base" class="nav-link" data-scroll-target="#qué-puedes-probar-con-el-código-base-inicial-src_base"><span class="header-section-number">4.1</span> 1. Qué puedes probar con el código base inicial (<code>src_base</code>)</a></li>
+  <li><a href="#qué-se-espera-que-haga-la-aplicación-tras-tus-implementaciones" id="toc-qué-se-espera-que-haga-la-aplicación-tras-tus-implementaciones" class="nav-link" data-scroll-target="#qué-se-espera-que-haga-la-aplicación-tras-tus-implementaciones"><span class="header-section-number">4.2</span> 2. Qué se espera que haga la aplicación tras tus implementaciones</a></li>
+  <li><a href="#resumen-comparativo-de-comportamiento" id="toc-resumen-comparativo-de-comportamiento" class="nav-link" data-scroll-target="#resumen-comparativo-de-comportamiento"><span class="header-section-number">4.3</span> Resumen comparativo de comportamiento</a></li>
   </ul></li>
-  <li><a href="#fases-de-implementación-técnica" id="toc-fases-de-implementación-técnica" class="nav-link" data-scroll-target="#fases-de-implementación-técnica"><span class="header-section-number">5</span> Fases de Implementación Técnica</a>
+  <li><a href="#dominio-de-negocio-del-sistema-helpdesk-y-gestión-de-incidentes" id="toc-dominio-de-negocio-del-sistema-helpdesk-y-gestión-de-incidentes" class="nav-link" data-scroll-target="#dominio-de-negocio-del-sistema-helpdesk-y-gestión-de-incidentes"><span class="header-section-number">5</span> Dominio de Negocio del Sistema Helpdesk y Gestión de Incidentes</a>
   <ul class="collapse">
-  <li><a href="#fase-1-preparación-del-repositorio-y-configuración-de-dependencias" id="toc-fase-1-preparación-del-repositorio-y-configuración-de-dependencias" class="nav-link" data-scroll-target="#fase-1-preparación-del-repositorio-y-configuración-de-dependencias"><span class="header-section-number">5.1</span> Fase 1: Preparación del Repositorio y Configuración de Dependencias</a></li>
-  <li><a href="#fase-2-modelo-de-dominio-de-seguridad-y-persistencia" id="toc-fase-2-modelo-de-dominio-de-seguridad-y-persistencia" class="nav-link" data-scroll-target="#fase-2-modelo-de-dominio-de-seguridad-y-persistencia"><span class="header-section-number">5.2</span> Fase 2: Modelo de Dominio de Seguridad y Persistencia</a></li>
-  <li><a href="#fase-3-servicio-criptográfico-jjwt-y-beans-de-seguridad" id="toc-fase-3-servicio-criptográfico-jjwt-y-beans-de-seguridad" class="nav-link" data-scroll-target="#fase-3-servicio-criptográfico-jjwt-y-beans-de-seguridad"><span class="header-section-number">5.3</span> Fase 3: Servicio Criptográfico JJWT y Beans de Seguridad</a></li>
-  <li><a href="#fase-4-filtro-de-intercepción-http-y-securityfilterchain-rbac" id="toc-fase-4-filtro-de-intercepción-http-y-securityfilterchain-rbac" class="nav-link" data-scroll-target="#fase-4-filtro-de-intercepción-http-y-securityfilterchain-rbac"><span class="header-section-number">5.4</span> Fase 4: Filtro de Intercepción HTTP y SecurityFilterChain (RBAC)</a></li>
-  <li><a href="#fase-5-controlador-de-autenticación-dtos-y-manejo-de-errores" id="toc-fase-5-controlador-de-autenticación-dtos-y-manejo-de-errores" class="nav-link" data-scroll-target="#fase-5-controlador-de-autenticación-dtos-y-manejo-de-errores"><span class="header-section-number">5.5</span> Fase 5: Controlador de Autenticación, DTOs y Manejo de Errores</a></li>
-  <li><a href="#fase-6-validación-automatizada-y-suite-de-pruebas-tdd" id="toc-fase-6-validación-automatizada-y-suite-de-pruebas-tdd" class="nav-link" data-scroll-target="#fase-6-validación-automatizada-y-suite-de-pruebas-tdd"><span class="header-section-number">5.6</span> Fase 6: Validación Automatizada y Suite de Pruebas (TDD)</a></li>
+  <li><a href="#matriz-de-control-de-acceso-basado-en-roles-rbac" id="toc-matriz-de-control-de-acceso-basado-en-roles-rbac" class="nav-link" data-scroll-target="#matriz-de-control-de-acceso-basado-en-roles-rbac"><span class="header-section-number">5.1</span> Matriz de Control de Acceso Basado en Roles (RBAC)</a></li>
   </ul></li>
-  <li><a href="#criterios-de-evaluación-rúbrica" id="toc-criterios-de-evaluación-rúbrica" class="nav-link" data-scroll-target="#criterios-de-evaluación-rúbrica"><span class="header-section-number">6</span> Criterios de Evaluación (Rúbrica)</a></li>
-  <li><a href="#protocolo-de-integridad-y-filtros-de-evaluación" id="toc-protocolo-de-integridad-y-filtros-de-evaluación" class="nav-link" data-scroll-target="#protocolo-de-integridad-y-filtros-de-evaluación"><span class="header-section-number">7</span> Protocolo de Integridad y Filtros de Evaluación</a></li>
-  <li><a href="#formato-y-protocolo-de-entrega" id="toc-formato-y-protocolo-de-entrega" class="nav-link" data-scroll-target="#formato-y-protocolo-de-entrega"><span class="header-section-number">8</span> Formato y Protocolo de Entrega</a>
+  <li><a href="#fases-de-implementación-técnica" id="toc-fases-de-implementación-técnica" class="nav-link" data-scroll-target="#fases-de-implementación-técnica"><span class="header-section-number">6</span> Fases de Implementación Técnica</a>
   <ul class="collapse">
-  <li><a href="#contenido-del-correo" id="toc-contenido-del-correo" class="nav-link" data-scroll-target="#contenido-del-correo"><span class="header-section-number">8.1</span> Contenido del Correo:</a></li>
+  <li><a href="#fase-1-preparación-del-repositorio-y-configuración-de-dependencias" id="toc-fase-1-preparación-del-repositorio-y-configuración-de-dependencias" class="nav-link" data-scroll-target="#fase-1-preparación-del-repositorio-y-configuración-de-dependencias"><span class="header-section-number">6.1</span> Fase 1: Preparación del Repositorio y Configuración de Dependencias</a></li>
+  <li><a href="#fase-2-modelo-de-dominio-de-seguridad-y-persistencia" id="toc-fase-2-modelo-de-dominio-de-seguridad-y-persistencia" class="nav-link" data-scroll-target="#fase-2-modelo-de-dominio-de-seguridad-y-persistencia"><span class="header-section-number">6.2</span> Fase 2: Modelo de Dominio de Seguridad y Persistencia</a></li>
+  <li><a href="#fase-3-servicio-criptográfico-jjwt-y-beans-de-seguridad" id="toc-fase-3-servicio-criptográfico-jjwt-y-beans-de-seguridad" class="nav-link" data-scroll-target="#fase-3-servicio-criptográfico-jjwt-y-beans-de-seguridad"><span class="header-section-number">6.3</span> Fase 3: Servicio Criptográfico JJWT y Beans de Seguridad</a></li>
+  <li><a href="#fase-4-filtro-de-intercepción-http-y-securityfilterchain-rbac" id="toc-fase-4-filtro-de-intercepción-http-y-securityfilterchain-rbac" class="nav-link" data-scroll-target="#fase-4-filtro-de-intercepción-http-y-securityfilterchain-rbac"><span class="header-section-number">6.4</span> Fase 4: Filtro de Intercepción HTTP y SecurityFilterChain (RBAC)</a></li>
+  <li><a href="#fase-5-controlador-de-autenticación-dtos-y-manejo-de-errores" id="toc-fase-5-controlador-de-autenticación-dtos-y-manejo-de-errores" class="nav-link" data-scroll-target="#fase-5-controlador-de-autenticación-dtos-y-manejo-de-errores"><span class="header-section-number">6.5</span> Fase 5: Controlador de Autenticación, DTOs y Manejo de Errores</a></li>
+  <li><a href="#fase-6-validación-automatizada-y-suite-de-pruebas-tdd" id="toc-fase-6-validación-automatizada-y-suite-de-pruebas-tdd" class="nav-link" data-scroll-target="#fase-6-validación-automatizada-y-suite-de-pruebas-tdd"><span class="header-section-number">6.6</span> Fase 6: Validación Automatizada y Suite de Pruebas (TDD)</a></li>
+  </ul></li>
+  <li><a href="#criterios-de-evaluación-rúbrica" id="toc-criterios-de-evaluación-rúbrica" class="nav-link" data-scroll-target="#criterios-de-evaluación-rúbrica"><span class="header-section-number">7</span> Criterios de Evaluación (Rúbrica)</a></li>
+  <li><a href="#protocolo-de-integridad-y-filtros-de-evaluación" id="toc-protocolo-de-integridad-y-filtros-de-evaluación" class="nav-link" data-scroll-target="#protocolo-de-integridad-y-filtros-de-evaluación"><span class="header-section-number">8</span> Protocolo de Integridad y Filtros de Evaluación</a></li>
+  <li><a href="#formato-y-protocolo-de-entrega" id="toc-formato-y-protocolo-de-entrega" class="nav-link" data-scroll-target="#formato-y-protocolo-de-entrega"><span class="header-section-number">9</span> Formato y Protocolo de Entrega</a>
+  <ul class="collapse">
+  <li><a href="#contenido-del-correo" id="toc-contenido-del-correo" class="nav-link" data-scroll-target="#contenido-del-correo"><span class="header-section-number">9.1</span> Contenido del Correo:</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -2465,15 +2471,111 @@ font-size: 0.9em;
 <li><strong>Base de datos en memoria (sin PostgreSQL ni contenedores):</strong> A diferencia de la práctica formativa anterior, este proyecto no requiere instalar un servidor de base de datos PostgreSQL, ni tener Docker o Podman en ejecución. La aplicación utiliza una base de datos <strong>H2 en memoria</strong> (<code>jdbc:h2:mem:helpdeskdb</code>) que se crea y se gestiona automáticamente en la memoria RAM al ejecutar el proyecto o las pruebas.</li>
 <li><strong>Uso del Gradle Wrapper (<code>./gradlew</code>):</strong> No necesitas tener Gradle instalado en el sistema operativo del computador. El repositorio ya incluye el archivo ejecutable <code>./gradlew</code> (en macOS/Linux) y <code>gradlew.bat</code> (en Windows), el cual se encarga de compilar, descargar las dependencias necesarias y ejecutar las pruebas de manera transparente.</li>
 <li><strong>Compatibilidad de versiones de Java (JDK 25 o JDK 21):</strong> El proyecto viene configurado de forma predeterminada para Java 25. Si la sala de cómputo cuenta con Java 21, no necesitas instalar nada nuevo: abre el archivo <code>build.gradle</code> y en el bloque <code>toolchain</code> cambia la línea <code>languageVersion = JavaLanguageVersion.of(25)</code> por <code>languageVersion = JavaLanguageVersion.of(21)</code>. El código y las pruebas son 100% compatibles con ambas versiones.</li>
-<li><strong>Validación mediante clientes HTTP o suite de pruebas:</strong> Puedes probar tus endpoints manualmente levantando la aplicación con <code>./gradlew bootRun</code> y usando herramientas como Bruno, Postman o cURL hacia <code>http://localhost:8080</code>. Sin embargo, la verificación definitiva y oficial de tu entrega se realiza ejecutando <code>./gradlew test</code>, el cual valida automáticamente todos los contratos de seguridad y roles con MockMvc sin depender de clientes externos.</li>
+<li><strong>Validación mediante clientes HTTP o suite de pruebas:</strong> Puedes probar tus endpoints manualmente levantando la aplicación con <code>./gradlew bootRun</code> y usando herramientas como Bruno, Postman o cURL hacia <code>http://localhost:8080</code>. El código base incluye los archivos <code>helpdesk_api_postman_collection.json</code> (colección nativa para Postman con variables dinámicas y auto-captura de tokens), <code>openapi.json</code> (especificación OpenAPI 3.0 importable en Swagger UI/Editor) y la guía <code>coleccion_curl_helpdesk.md</code> con comandos de terminal. Sin embargo, la verificación definitiva y oficial de tu entrega se realiza ejecutando <code>./gradlew test</code>, el cual valida automáticamente todos los contratos de seguridad y roles con MockMvc sin depender de clientes externos.</li>
 </ul>
 <hr>
 </section>
-<section id="dominio-de-negocio-del-sistema-helpdesk-y-gestión-de-incidentes" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="dominio-de-negocio-del-sistema-helpdesk-y-gestión-de-incidentes"><span class="header-section-number">4</span> Dominio de Negocio del Sistema Helpdesk y Gestión de Incidentes</h2>
+<section id="comportamiento-del-backend-antes-y-después-de-implementar-la-seguridad" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="comportamiento-del-backend-antes-y-después-de-implementar-la-seguridad"><span class="header-section-number">4</span> Comportamiento del backend antes y después de implementar la seguridad</h2>
+<p>Para el desarrollo exitoso del taller, debes tener total claridad sobre qué responde el código base tal como se te entrega y qué debe hacer la aplicación una vez completadas tus implementaciones:</p>
+<section id="qué-puedes-probar-con-el-código-base-inicial-src_base" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="qué-puedes-probar-con-el-código-base-inicial-src_base"><span class="header-section-number">4.1</span> 1. Qué puedes probar con el código base inicial (<code>src_base</code>)</h3>
+<p>Al recibir el proyecto y levantarlo con <code>./gradlew bootRun</code>:</p>
+<ol type="1">
+<li><p><strong>El servidor compila y arranca en el puerto 8080:</strong> Observarás en la consola de la terminal la línea <code>Using generated security password: &lt;clave&gt;</code>, lo que confirma que el starter de Spring Security se encuentra cargado en el classpath.</p></li>
+<li><p><strong>Cualquier intento de consumo es interceptado por el formulario web:</strong> Si intentas consultar los tickets en el navegador o mediante cURL:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-i</span> http://localhost:8080/api/v1/tickets</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El servidor responderá con <code>HTTP/1.1 302 Found</code> redirigiendo a <code>http://localhost:8080/login</code>, presentando la pantalla HTML <em>“Please sign in”</em>, o responderá con <code>HTTP/1.1 401 Unauthorized</code>.</p></li>
+<li><p><strong>El envío de tokens Bearer es ignorado por completo:</strong> Si ejecutas una petición con cabecera de autenticación como:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-i</span> <span class="at">--request</span> POST <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--url</span> http://localhost:8080/api/v1/tickets <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--header</span> <span class="st">&#39;Authorization: Bearer 23412431&#39;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>El servidor responderá SIEMPRE con el formulario de login (<code>/login</code>) o 401.</strong> Esto ocurre porque en el código base inicial aún no has programado el filtro <code>JwtAuthenticationFilter</code>. Spring Security no sabe qué es un Bearer token, ignora esa cabecera, asume que la petición es anónima y activa el formulario web predeterminado.</p></li>
+<li><p><strong>Las pruebas de integración validan el punto de partida (TDD Red):</strong> Al ejecutar <code>./gradlew test</code>, el proyecto compilará pero los 9 escenarios de prueba fallarán en rojo, confirmando que la lógica de seguridad y roles está pendiente por construir.</p></li>
+</ol>
+</section>
+<section id="qué-se-espera-que-haga-la-aplicación-tras-tus-implementaciones" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="qué-se-espera-que-haga-la-aplicación-tras-tus-implementaciones"><span class="header-section-number">4.2</span> 2. Qué se espera que haga la aplicación tras tus implementaciones</h3>
+<p>Al culminar las Fases 1 a 5 (<code>Usuario</code>, <code>JwtService</code>, <code>ApplicationConfig</code>, <code>JwtAuthenticationFilter</code>, <code>SecurityConfig</code> y <code>AuthController</code>):</p>
+<ol type="1">
+<li><p><strong>Desaparición total del formulario de login web:</strong> La aplicación se convierte en una API REST 100% Stateless. Ya no existen sesiones en memoria ni redirecciones a <code>/login</code>.</p></li>
+<li><p><strong>Rechazo con código HTTP REST ante tokens inválidos o accesos anónimos:</strong> Al repetir la petición de prueba con un token no válido o ausente:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-i</span> <span class="at">--request</span> POST <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--url</span> http://localhost:8080/api/v1/tickets <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--header</span> <span class="st">&#39;Authorization: Bearer 23412431&#39;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>La aplicación debe responder directamente con <code>HTTP/1.1 403 Forbidden</code></strong> (en lugar de redirigir a un formulario web).</p></li>
+<li><p><strong>Registro y autenticación pública funcional:</strong> El endpoint <code>POST /api/v1/auth/register</code> (y sus variantes <code>-soporte</code> y <code>-admin</code>) debe permitir crear usuarios y retornar un token JWT firmado con status <code>200 OK</code>. El endpoint <code>POST /api/v1/auth/login</code> debe validar credenciales con BCrypt y emitir el token (o retornar <code>401 UNAUTHORIZED</code> estructurado ante credenciales erróneas).</p></li>
+<li><p><strong>Consumo autorizado con Bearer Token:</strong> Al enviar un token JWT válido generado por el sistema:</p>
+<ul>
+<li><code>POST /api/v1/tickets</code> con rol <code>CLIENTE</code> o <code>ADMIN</code> responde <code>HTTP/1.1 201 Created</code> con el JSON del ticket persistido.</li>
+<li><code>GET /api/v1/tickets</code> con rol <code>CLIENTE</code>, <code>SOPORTE</code> o <code>ADMIN</code> responde <code>HTTP/1.1 200 OK</code> con la lista de incidentes.</li>
+<li><code>PUT /api/v1/tickets/{id}/estado</code> con rol <code>SOPORTE</code> o <code>ADMIN</code> responde <code>HTTP/1.1 200 OK</code>.</li>
+</ul></li>
+<li><p><strong>Cumplimiento estricto de la matriz RBAC:</strong> Si un usuario con rol <code>CLIENTE</code> intenta eliminar un ticket (<code>DELETE</code>) o acceder al panel de administración (<code>GET /api/v1/admin/auditoria</code>), la aplicación debe bloquear la transacción con <strong><code>HTTP/1.1 403 Forbidden</code></strong>.</p></li>
+<li><p><strong>Suite de pruebas de integración superada (TDD Green):</strong> Al ejecutar <code>./gradlew test</code>, los 9 escenarios de prueba de <code>SecurityIntegrationTest.java</code> deben pasar al 100% en verde.</p></li>
+</ol>
+</section>
+<section id="resumen-comparativo-de-comportamiento" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="resumen-comparativo-de-comportamiento"><span class="header-section-number">4.3</span> Resumen comparativo de comportamiento</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Petición de Prueba</th>
+<th style="text-align: left;">Respuesta en Código Base (<code>src_base</code>)</th>
+<th style="text-align: left;">Respuesta Esperada tras tu Implementación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>GET /api/v1/tickets</code> (Sin token)</td>
+<td style="text-align: left;">Redirección <code>302</code> a <code>/login</code> (Formulario HTML) o <code>401</code></td>
+<td style="text-align: left;"><strong><code>403 Forbidden</code></strong> directo</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>POST /api/v1/tickets</code> (Con <code>Bearer 23412431</code>)</td>
+<td style="text-align: left;">Redirección <code>302</code> a <code>/login</code> (Formulario HTML) o <code>401</code></td>
+<td style="text-align: left;"><strong><code>403 Forbidden</code></strong> directo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>POST /api/v1/auth/register</code></td>
+<td style="text-align: left;"><code>404 Not Found</code> (o redirección <code>/login</code>)</td>
+<td style="text-align: left;"><strong><code>200 OK</code></strong> con token JWT firmado</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>POST /api/v1/tickets</code> (Con JWT de <code>CLIENTE</code>)</td>
+<td style="text-align: left;">Redirección <code>302</code> a <code>/login</code> (Formulario HTML) o <code>401</code></td>
+<td style="text-align: left;"><strong><code>201 Created</code></strong> con JSON del ticket</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>DELETE /api/v1/tickets/{id}</code> (Con JWT de <code>CLIENTE</code>)</td>
+<td style="text-align: left;">Redirección <code>302</code> a <code>/login</code> (Formulario HTML) o <code>401</code></td>
+<td style="text-align: left;"><strong><code>403 Forbidden</code></strong> (RBAC)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>DELETE /api/v1/tickets/{id}</code> (Con JWT de <code>ADMIN</code>)</td>
+<td style="text-align: left;">Redirección <code>302</code> a <code>/login</code> (Formulario HTML) o <code>401</code></td>
+<td style="text-align: left;"><strong><code>204 No Content</code></strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>./gradlew test</code></td>
+<td style="text-align: left;">9 pruebas fallidas (Fase Red)</td>
+<td style="text-align: left;"><strong>9 pruebas exitosas en verde (Fase Green)</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="dominio-de-negocio-del-sistema-helpdesk-y-gestión-de-incidentes" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="dominio-de-negocio-del-sistema-helpdesk-y-gestión-de-incidentes"><span class="header-section-number">5</span> Dominio de Negocio del Sistema Helpdesk y Gestión de Incidentes</h2>
 <p>El sistema gestiona incidentes corporativos mediante la entidad <code>Ticket</code>, la cual posee atributos de identificación, título, descripción, prioridad (<code>BAJA</code>, <code>MEDIA</code>, <code>ALTA</code>, <code>CRITICA</code>), estado (<code>ABIERTO</code>, <code>EN_PROCESO</code>, <code>RESUELTO</code>, <code>CERRADO</code>), usuario creador y técnico asignado.</p>
-<section id="matriz-de-control-de-acceso-basado-en-roles-rbac" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="matriz-de-control-de-acceso-basado-en-roles-rbac"><span class="header-section-number">4.1</span> Matriz de Control de Acceso Basado en Roles (RBAC)</h3>
+<section id="matriz-de-control-de-acceso-basado-en-roles-rbac" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="matriz-de-control-de-acceso-basado-en-roles-rbac"><span class="header-section-number">5.1</span> Matriz de Control de Acceso Basado en Roles (RBAC)</h3>
 <p>El subsistema de seguridad debe soportar tres roles de usuario con permisos estrictamente delimitados:</p>
 <table class="caption-top table">
 <colgroup>
@@ -2538,33 +2640,33 @@ font-size: 0.9em;
 <hr>
 </section>
 </section>
-<section id="fases-de-implementación-técnica" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="fases-de-implementación-técnica"><span class="header-section-number">5</span> Fases de Implementación Técnica</h2>
-<section id="fase-1-preparación-del-repositorio-y-configuración-de-dependencias" class="level3" data-number="5.1">
-<h3 data-number="5.1" class="anchored" data-anchor-id="fase-1-preparación-del-repositorio-y-configuración-de-dependencias"><span class="header-section-number">5.1</span> Fase 1: Preparación del Repositorio y Configuración de Dependencias</h3>
+<section id="fases-de-implementación-técnica" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="fases-de-implementación-técnica"><span class="header-section-number">6</span> Fases de Implementación Técnica</h2>
+<section id="fase-1-preparación-del-repositorio-y-configuración-de-dependencias" class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="fase-1-preparación-del-repositorio-y-configuración-de-dependencias"><span class="header-section-number">6.1</span> Fase 1: Preparación del Repositorio y Configuración de Dependencias</h3>
 <ol type="1">
 <li>Toma el código fuente ubicado en la carpeta <code>src_base/</code> facilitada por el docente.</li>
 <li>Crea un nuevo repositorio <strong>público</strong> en tu cuenta de GitHub (ejemplo: <code>taller-auth-jwt-tunombre</code>).</li>
 <li>Inicializa el repositorio localmente, configura la rama principal (<code>main</code>) y realiza el commit inicial con la base del proyecto.</li>
 <li>Verifica que el archivo <code>build.gradle</code> incluya las dependencias del ecosistema de seguridad:</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode gradle code-with-copy"><code class="sourceCode groovy"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// build.gradle</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dependencies <span class="op">{</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Spring Security</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    implementation <span class="st">&#39;org.springframework.boot:spring-boot-starter-security&#39;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// JJWT 0.12.5</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    implementation <span class="st">&#39;io.jsonwebtoken:jjwt-api:0.12.5&#39;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    runtimeOnly <span class="st">&#39;io.jsonwebtoken:jjwt-impl:0.12.5&#39;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    runtimeOnly <span class="st">&#39;io.jsonwebtoken:jjwt-jackson:0.12.5&#39;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Soporte de pruebas para Spring Security</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    testImplementation <span class="st">&#39;org.springframework.security:spring-security-test&#39;</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode gradle code-with-copy"><code class="sourceCode groovy"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// build.gradle</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dependencies <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Spring Security</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    implementation <span class="st">&#39;org.springframework.boot:spring-boot-starter-security&#39;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// JJWT 0.12.5</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    implementation <span class="st">&#39;io.jsonwebtoken:jjwt-api:0.12.5&#39;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    runtimeOnly <span class="st">&#39;io.jsonwebtoken:jjwt-impl:0.12.5&#39;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    runtimeOnly <span class="st">&#39;io.jsonwebtoken:jjwt-jackson:0.12.5&#39;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Soporte de pruebas para Spring Security</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    testImplementation <span class="st">&#39;org.springframework.security:spring-security-test&#39;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="fase-2-modelo-de-dominio-de-seguridad-y-persistencia" class="level3" data-number="5.2">
-<h3 data-number="5.2" class="anchored" data-anchor-id="fase-2-modelo-de-dominio-de-seguridad-y-persistencia"><span class="header-section-number">5.2</span> Fase 2: Modelo de Dominio de Seguridad y Persistencia</h3>
+<section id="fase-2-modelo-de-dominio-de-seguridad-y-persistencia" class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="fase-2-modelo-de-dominio-de-seguridad-y-persistencia"><span class="header-section-number">6.2</span> Fase 2: Modelo de Dominio de Seguridad y Persistencia</h3>
 <p>Crea el modelo de persistencia para los usuarios del sistema bajo el paquete <code>com.empresa.helpdesk.model</code>:</p>
 <ol type="1">
 <li><strong>Enum <code>Role.java</code>:</strong>
@@ -2587,8 +2689,8 @@ font-size: 0.9em;
 </ol>
 <hr>
 </section>
-<section id="fase-3-servicio-criptográfico-jjwt-y-beans-de-seguridad" class="level3" data-number="5.3">
-<h3 data-number="5.3" class="anchored" data-anchor-id="fase-3-servicio-criptográfico-jjwt-y-beans-de-seguridad"><span class="header-section-number">5.3</span> Fase 3: Servicio Criptográfico JJWT y Beans de Seguridad</h3>
+<section id="fase-3-servicio-criptográfico-jjwt-y-beans-de-seguridad" class="level3" data-number="6.3">
+<h3 data-number="6.3" class="anchored" data-anchor-id="fase-3-servicio-criptográfico-jjwt-y-beans-de-seguridad"><span class="header-section-number">6.3</span> Fase 3: Servicio Criptográfico JJWT y Beans de Seguridad</h3>
 <p>Crea el paquete <code>com.empresa.helpdesk.security</code> e implementa los siguientes componentes:</p>
 <ol type="1">
 <li><strong>Servicio <code>JwtService.java</code>:</strong>
@@ -2614,8 +2716,8 @@ font-size: 0.9em;
 </ol>
 <hr>
 </section>
-<section id="fase-4-filtro-de-intercepción-http-y-securityfilterchain-rbac" class="level3" data-number="5.4">
-<h3 data-number="5.4" class="anchored" data-anchor-id="fase-4-filtro-de-intercepción-http-y-securityfilterchain-rbac"><span class="header-section-number">5.4</span> Fase 4: Filtro de Intercepción HTTP y SecurityFilterChain (RBAC)</h3>
+<section id="fase-4-filtro-de-intercepción-http-y-securityfilterchain-rbac" class="level3" data-number="6.4">
+<h3 data-number="6.4" class="anchored" data-anchor-id="fase-4-filtro-de-intercepción-http-y-securityfilterchain-rbac"><span class="header-section-number">6.4</span> Fase 4: Filtro de Intercepción HTTP y SecurityFilterChain (RBAC)</h3>
 <ol type="1">
 <li><strong>Filtro <code>JwtAuthenticationFilter.java</code>:</strong>
 <ul>
@@ -2646,8 +2748,8 @@ font-size: 0.9em;
 </ol>
 <hr>
 </section>
-<section id="fase-5-controlador-de-autenticación-dtos-y-manejo-de-errores" class="level3" data-number="5.5">
-<h3 data-number="5.5" class="anchored" data-anchor-id="fase-5-controlador-de-autenticación-dtos-y-manejo-de-errores"><span class="header-section-number">5.5</span> Fase 5: Controlador de Autenticación, DTOs y Manejo de Errores</h3>
+<section id="fase-5-controlador-de-autenticación-dtos-y-manejo-de-errores" class="level3" data-number="6.5">
+<h3 data-number="6.5" class="anchored" data-anchor-id="fase-5-controlador-de-autenticación-dtos-y-manejo-de-errores"><span class="header-section-number">6.5</span> Fase 5: Controlador de Autenticación, DTOs y Manejo de Errores</h3>
 <ol type="1">
 <li><strong>Controlador <code>AuthController.java</code>:</strong>
 <ul>
@@ -2669,11 +2771,11 @@ font-size: 0.9em;
 <li><strong>Manejo Global de Excepciones (<code>GlobalExceptionHandler.java</code>):</strong>
 <ul>
 <li><p>Verifica que la clase <code>GlobalExceptionHandler.java</code> (ya provista en el código base bajo <code>com.empresa.helpdesk.exception</code>) capture adecuadamente <code>BadCredentialsException.class</code> y retorne el status <code>401 UNAUTHORIZED</code> con el payload JSON:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;timestamp&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-08-31T12:00:00&quot;</span><span class="fu">,</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;error&quot;</span><span class="fu">:</span> <span class="st">&quot;UNAUTHORIZED&quot;</span><span class="fu">,</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;mensaje&quot;</span><span class="fu">:</span> <span class="st">&quot;Credenciales inválidas. Por favor verifica tu usuario o contraseña.&quot;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;timestamp&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-08-31T12:00:00&quot;</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;error&quot;</span><span class="fu">:</span> <span class="st">&quot;UNAUTHORIZED&quot;</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;mensaje&quot;</span><span class="fu">:</span> <span class="st">&quot;Credenciales inválidas. Por favor verifica tu usuario o contraseña.&quot;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
 </ul></li>
 </ol>
 <hr>
@@ -2685,18 +2787,18 @@ font-size: 0.9em;
 </ol>
 </div>
 </section>
-<section id="fase-6-validación-automatizada-y-suite-de-pruebas-tdd" class="level3" data-number="5.6">
-<h3 data-number="5.6" class="anchored" data-anchor-id="fase-6-validación-automatizada-y-suite-de-pruebas-tdd"><span class="header-section-number">5.6</span> Fase 6: Validación Automatizada y Suite de Pruebas (TDD)</h3>
+<section id="fase-6-validación-automatizada-y-suite-de-pruebas-tdd" class="level3" data-number="6.6">
+<h3 data-number="6.6" class="anchored" data-anchor-id="fase-6-validación-automatizada-y-suite-de-pruebas-tdd"><span class="header-section-number">6.6</span> Fase 6: Validación Automatizada y Suite de Pruebas (TDD)</h3>
 <p>El proyecto base incluye la suite de pruebas <code>SecurityIntegrationTest.java</code> en <code>src/test/java/com/empresa/helpdesk/security/</code>.</p>
 <p>Debes ejecutar la suite completa en tu terminal local para comprobar que todos los escenarios de seguridad pasen exitosamente:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecución de pruebas de integración de seguridad</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> test</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecución de pruebas de integración de seguridad</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> test</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>La suite valida: 1. Rechazo con <code>403 Forbidden</code> al acceder sin token a rutas protegidas. 2. Registro exitoso de usuario con encriptación BCrypt y generación de token. 3. Login exitoso con credenciales correctas. 4. Login fallido con contraseña incorrecta retornando <code>401 UNAUTHORIZED</code>. 5. Permisos de creación (<code>201</code>) y lectura (<code>200</code>) para rol <code>CLIENTE</code>. 6. Bloqueo (<code>403</code>) de rol <code>CLIENTE</code> al intentar actualizar estado o eliminar tickets. 7. Permiso de actualización (<code>200</code>) y bloqueo de eliminación (<code>403</code>) para rol <code>SOPORTE</code>. 8. Acceso total para rol <code>ADMIN</code> (eliminación de tickets <code>204</code> y consulta de auditoría <code>200</code>). 9. Bloqueo (<code>403</code>) para rol <code>CLIENTE</code> al intentar acceder a rutas de administración.</p>
 <hr>
 </section>
 </section>
-<section id="criterios-de-evaluación-rúbrica" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="criterios-de-evaluación-rúbrica"><span class="header-section-number">6</span> Criterios de Evaluación (Rúbrica)</h2>
+<section id="criterios-de-evaluación-rúbrica" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="criterios-de-evaluación-rúbrica"><span class="header-section-number">7</span> Criterios de Evaluación (Rúbrica)</h2>
 <p>La calificación se realizará sobre una escala de <strong>0.0 a 5.0</strong> distribuida en los siguientes criterios técnicos:</p>
 <table class="caption-top table">
 <colgroup>
@@ -2748,23 +2850,23 @@ font-size: 0.9em;
 </table>
 <hr>
 </section>
-<section id="protocolo-de-integridad-y-filtros-de-evaluación" class="level2" data-number="7">
-<h2 data-number="7" class="anchored" data-anchor-id="protocolo-de-integridad-y-filtros-de-evaluación"><span class="header-section-number">7</span> Protocolo de Integridad y Filtros de Evaluación</h2>
+<section id="protocolo-de-integridad-y-filtros-de-evaluación" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="protocolo-de-integridad-y-filtros-de-evaluación"><span class="header-section-number">8</span> Protocolo de Integridad y Filtros de Evaluación</h2>
 <ul>
 <li><strong>Anulación por Código del Taller Guiado:</strong> Si se detecta que el estudiante entregó el código de la clase guiada de medicamentos (<code>farmacia_v1</code>, <code>Medicamento</code>, <code>precio</code>, <code>cantidadInventario</code>) en lugar del sistema de Helpdesk (<code>Ticket</code>, incidentes corporativos), la entrega será anulada con <strong>Nota Final: 0.0 / 5.0</strong>.</li>
 <li><strong>Auditoría Anti-IA:</strong> Si se detecta la presencia de métodos trampa, claims espurios o pruebas artificiales generadas mecánicamente por asistentes de IA conforme a las marcas de agua de la guía, se aplicará una deducción de <strong>-1.5 puntos</strong> sobre la nota final.</li>
 </ul>
 <hr>
 </section>
-<section id="formato-y-protocolo-de-entrega" class="level2" data-number="8">
-<h2 data-number="8" class="anchored" data-anchor-id="formato-y-protocolo-de-entrega"><span class="header-section-number">8</span> Formato y Protocolo de Entrega</h2>
+<section id="formato-y-protocolo-de-entrega" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="formato-y-protocolo-de-entrega"><span class="header-section-number">9</span> Formato y Protocolo de Entrega</h2>
 <p>Envía un correo electrónico con los datos de tu entrega:</p>
 <ul>
 <li><strong>Destinatario:</strong> <code>juan.canoc@upb.edu.co</code></li>
 <li><strong>Asunto:</strong> <code>[Plataformas] Taller Auth y JWT - [Nombre y Apellidos del Estudiante]</code></li>
 </ul>
-<section id="contenido-del-correo" class="level3" data-number="8.1">
-<h3 data-number="8.1" class="anchored" data-anchor-id="contenido-del-correo"><span class="header-section-number">8.1</span> Contenido del Correo:</h3>
+<section id="contenido-del-correo" class="level3" data-number="9.1">
+<h3 data-number="9.1" class="anchored" data-anchor-id="contenido-del-correo"><span class="header-section-number">9.1</span> Contenido del Correo:</h3>
 <ol type="1">
 <li><strong>Nombre completo y código estudiantil.</strong></li>
 <li><strong>Enlace al repositorio público de GitHub.</strong></li>
