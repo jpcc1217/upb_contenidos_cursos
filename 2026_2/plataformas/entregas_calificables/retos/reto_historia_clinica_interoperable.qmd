@@ -1,0 +1,173 @@
+---
+title: "Historia clínica interoperable en una red de IPS"
+format:
+  html:
+    theme: cosmo
+    callout-appearance: minimal
+    embed-resources: true
+    toc: true
+    toc-depth: 3
+    highlight-style: dracula
+    code-block-bg: true
+    code-copy: true
+lang: es
+---
+
+```{=html}
+<style>
+/* Contenedor y fondo Dracula Dark de alto contraste para bloques de código */
+div.sourceCode, pre.sourceCode, pre > code.sourceCode {
+  background-color: #282a36 !important;
+  color: #f8f8f2 !important;
+  border-radius: 8px !important;
+}
+
+div.sourceCode {
+  border: 1px solid #44475a !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+  margin: 1.25rem 0 !important;
+}
+
+div.sourceCode pre.sourceCode {
+  background-color: transparent !important;
+  margin: 0 !important;
+  padding: 0.9rem 1.1rem !important;
+}
+
+div.sourceCode pre.sourceCode code {
+  background-color: transparent !important;
+  color: #f8f8f2 !important;
+  font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+/* Botón de copia adaptado a tema oscuro */
+.code-copy-button {
+  background-color: #44475a !important;
+  border: 1px solid #6272a4 !important;
+  color: #f8f8f2 !important;
+  border-radius: 4px !important;
+  opacity: 0.85;
+}
+
+.code-copy-button:hover {
+  background-color: #6272a4 !important;
+  opacity: 1;
+}
+
+.code-copy-button i {
+  color: #f8f8f2 !important;
+}
+
+/* Código inline sobrio en texto plano */
+code:not(.sourceCode) {
+  background-color: #f1f3f5 !important;
+  color: #c7254e !important;
+  padding: 0.18em 0.4em !important;
+  border-radius: 4px !important;
+  font-size: 0.9em;
+}
+
+/* Referencias en APA con sangría francesa */
+.referencias p {
+  padding-left: 2em;
+  text-indent: -2em;
+  overflow-wrap: anywhere;
+}
+</style>
+```
+
+Una red de IPS ambulatorias nació de la fusión de tres redes y heredó tres sistemas de historia clínica distintos. La norma de interoperabilidad ya obliga a enviar un resumen digital de cada atención en un estándar internacional, y la facturación en salud rechaza lo que no cuadra con la historia. La propuesta de arquitectura debe cumplir la norma a tiempo, sin esperar los años que tomaría unificar los tres sistemas.
+
+::: {.callout-note}
+La empresa, sus cifras internas, sus sistemas y su presupuesto son ficticios. El contexto sectorial y normativo es real, y sus fuentes están al final del documento.
+:::
+
+## La empresa
+
+Red Clínica Aluna S.A.S. es una red de instituciones prestadoras de servicios de salud (IPS) ambulatorias con 34 sedes en Antioquia, Caldas y Risaralda. Presta consulta externa general y especializada, laboratorio clínico, imágenes diagnósticas y urgencias de baja complejidad. Hace 1,1 millones de atenciones al año bajo contratos con siete EPS.
+
+La red se formó por la fusión de tres redes regionales entre 2023 y 2025. Cada una trajo su propio sistema de historia clínica, su agenda y su forma de facturar.
+
+## Qué cambió en el sector
+
+- **La historia clínica debe ser interoperable.** La Ley 2015 de 2020 creó la historia clínica electrónica interoperable, y la Resolución 1888 de 2025 del Ministerio de Salud adoptó el Resumen Digital de Atención en Salud (RDA) como mecanismo obligatorio. Los prestadores deben generar un RDA por cada atención (de paciente, de consulta externa, de urgencias y de hospitalización) y transmitirlo a la plataforma nacional con el estándar HL7 FHIR R4. La resolución dio a los prestadores un plazo máximo de seis meses, contados desde el 15 de octubre de 2025, para integrar e interoperar sus sistemas, y ese plazo venció el 15 de abril de 2026.
+- **La factura en salud se valida contra lo que se atendió.** La Resolución 948 del 14 de mayo de 2026 derogó la Resolución 2275 de 2023 y consolidó el Registro Individual de Prestación de Servicios (RIPS) como soporte obligatorio de la factura electrónica de venta (FEV) en salud. El Mecanismo Único de Validación (MUV) del Ministerio valida el RIPS contra la factura antes de que llegue a la EPS y genera el código único de validación (CUV). Sus reglas se publican en documentos técnicos que el Ministerio puede actualizar sin modificar la resolución.
+- **Los datos de salud son sensibles.** La Ley 1581 de 2012 los clasifica como datos sensibles: su tratamiento exige autorización explícita, acceso restringido y trazabilidad de quién los consulta.
+
+## Sistemas en operación
+
+::: {.table-responsive}
+
+| Sistema | Tecnología y antigüedad | Qué hace | Dueño |
+| :--- | :--- | :--- | :--- |
+| Sistema clínico de la red A | Producto comercial colombiano instalado en el centro de datos, SQL Server, desde 2012 | Historia clínica, órdenes médicas y agenda de las 15 sedes de la antigua red A | Dirección médica |
+| Sistema clínico de la red B | Desarrollo propio en .NET Framework 4.5 y Oracle, desde 2015 | Historia clínica y agenda de las 12 sedes de la antigua red B | TI (dos desarrolladores que lo conocen) |
+| Sistema clínico de la red C | SaaS de historia clínica para consultorios, desde 2019 | Historia clínica y agenda de las 7 sedes de la antigua red C | Dirección médica |
+| Sistema de laboratorio | Producto comercial, desde 2014 | Órdenes y resultados de laboratorio. Tiene interfaz HL7 v2 solo con el sistema de la red A; a las redes B y C los resultados les llegan en PDF por correo | Dirección de laboratorio |
+| Facturación y RIPS | ERP financiero con facturador electrónico, más un proceso de extracción nocturno, desde 2024 | El proceso nocturno lee las atenciones de los tres sistemas clínicos, arma los RIPS en JSON y alimenta el facturador. También aplica una tabla de equivalencias de pacientes que una analista de admisiones actualiza cada semana, uniendo los registros de una misma persona que aparece con datos distintos en dos o tres redes | Gerencia financiera |
+| Canales de atención al paciente | Sitio web con un complemento de citas y un call center que agenda en los tres sistemas | Solicitud de citas, información y atención de quejas | Gerencia de servicio |
+
+:::
+
+## Síntomas medidos
+
+- Ninguno de los tres sistemas clínicos genera hoy el RDA en FHIR R4, y el plazo de integración ya venció.
+- El 9,4 % del valor facturado es glosado por las EPS, y el 38 % de esas glosas se debe a inconsistencias entre el RIPS y lo que dice la historia.
+- Un resultado de laboratorio tarda en promedio 2,3 días en llegar al médico tratante de las redes B y C.
+- El 14 % de los pacientes tiene registros duplicados entre redes.
+- Un paciente no puede agendar en una sede de otra red, aunque quede más cerca, porque cada agenda vive en un sistema distinto.
+
+## Interesados
+
+| Interesado | Preocupación principal |
+| :--- | :--- |
+| Gerencia general | Cumplir la norma, reducir glosas y justificar la fusión con resultados |
+| Dirección médica | Que el médico vea la historia completa del paciente, sin importar la sede |
+| Facturación y cuentas médicas | RIPS que pasen la validación a la primera y menos glosas |
+| Pacientes | Agendar en cualquier sede, no repetir exámenes y saber quién consulta sus datos |
+| EPS pagadoras | Facturas soportadas y consistentes con la atención prestada |
+| Ministerio de Salud y Superintendencia de Salud | RDA transmitidos, RIPS válidos y protección de los datos de salud |
+
+## Restricciones
+
+- Los proveedores estiman que unificar los tres sistemas clínicos en uno solo toma al menos 30 meses, y el cumplimiento normativo no puede esperar ese plazo.
+- El presupuesto de inversión para 2027 es de COP 3.900 millones, con un equipo de TI de nueve personas.
+- Cada consulta a una historia clínica debe quedar registrada con quién, cuándo y desde dónde, y el acceso se limita por rol.
+- Las sedes rurales de Caldas deben seguir atendiendo cuando se cae el enlace con el centro de datos, y sincronizar al volver.
+
+## Metas del negocio
+
+| Meta | Línea base | Objetivo a diciembre de 2027 |
+| :--- | :---: | :---: |
+| Atenciones de consulta externa y urgencias con RDA transmitido | 0 % | 100 % |
+| Glosas causadas por inconsistencias del RIPS, sobre el total de glosas | 38 % | Menos del 10 % |
+| Tiempo para que un resultado de laboratorio llegue al médico de las redes B y C | 2,3 días | Menos de 4 horas |
+| Pacientes con registros duplicados entre redes | 14 % | Menos del 1 % |
+
+## Decisiones que la propuesta debe resolver
+
+1. Si conviene un sistema clínico único o una capa de interoperabilidad sobre los tres, y en qué orden.
+2. Dónde se genera el RDA: en cada sistema clínico, en una plataforma de integración o en un servidor FHIR propio.
+3. Cuál es el sistema de registro de la identidad del paciente.
+4. Cómo se alinean el RIPS, la factura y la historia clínica para reducir las glosas.
+5. Cómo se garantiza la atención en las sedes rurales durante una caída del enlace sin romper la interoperabilidad.
+
+## Fuentes consultadas
+
+::: {.referencias}
+
+Centro de Estudios Regulatorios. (2026, 19 de mayo). *Minsalud, Resolución 948 de 2026, 14-may-2026*. <https://www.cerlatam.com/normatividad/minsalud-resolucion-948-de-202614-may-2026/>
+
+Congreso de la República de Colombia. (2012, 17 de octubre). *Ley 1581 de 2012*. Función Pública. <https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=49981>
+
+Ministerio de Salud y Protección Social. (s. f.). *Resumen Digital de Atención en Salud (RDA) v1.0.0* [Guía de implementación]. <https://vulcano.ihcecol.gov.co/>
+
+Ministerio de Salud y Protección Social. (2025, 15 de septiembre). *Resolución 1888 de 2025*. <https://www.minsalud.gov.co/Normatividad_Nuevo/Resolucion%20No%201888%20de%202025.pdf>
+
+Ministerio de Salud y Protección Social. (2026, 14 de mayo). *Resolución 948 de 2026*. <https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-0948-de-2026.pdf>
+
+Moreno González, N. (2025, 15 de septiembre). *Colombia adopta el Resumen Digital de Atención en Salud: un paso decisivo hacia la interoperabilidad clínica. Resolución 1888 de 2025*. Consultorsalud. <https://consultorsalud.com/colombia-resumen-digital-de-atencion-en-salud/>
+
+:::

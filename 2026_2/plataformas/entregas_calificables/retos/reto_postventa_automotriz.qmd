@@ -1,0 +1,177 @@
+---
+title: "Postventa automotriz ante la electrificación"
+format:
+  html:
+    theme: cosmo
+    callout-appearance: minimal
+    embed-resources: true
+    toc: true
+    toc-depth: 3
+    highlight-style: dracula
+    code-block-bg: true
+    code-copy: true
+lang: es
+---
+
+```{=html}
+<style>
+/* Contenedor y fondo Dracula Dark de alto contraste para bloques de código */
+div.sourceCode, pre.sourceCode, pre > code.sourceCode {
+  background-color: #282a36 !important;
+  color: #f8f8f2 !important;
+  border-radius: 8px !important;
+}
+
+div.sourceCode {
+  border: 1px solid #44475a !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+  margin: 1.25rem 0 !important;
+}
+
+div.sourceCode pre.sourceCode {
+  background-color: transparent !important;
+  margin: 0 !important;
+  padding: 0.9rem 1.1rem !important;
+}
+
+div.sourceCode pre.sourceCode code {
+  background-color: transparent !important;
+  color: #f8f8f2 !important;
+  font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+/* Botón de copia adaptado a tema oscuro */
+.code-copy-button {
+  background-color: #44475a !important;
+  border: 1px solid #6272a4 !important;
+  color: #f8f8f2 !important;
+  border-radius: 4px !important;
+  opacity: 0.85;
+}
+
+.code-copy-button:hover {
+  background-color: #6272a4 !important;
+  opacity: 1;
+}
+
+.code-copy-button i {
+  color: #f8f8f2 !important;
+}
+
+/* Código inline sobrio en texto plano */
+code:not(.sourceCode) {
+  background-color: #f1f3f5 !important;
+  color: #c7254e !important;
+  padding: 0.18em 0.4em !important;
+  border-radius: 4px !important;
+  font-size: 0.9em;
+}
+
+/* Referencias en APA con sangría francesa */
+.referencias p {
+  padding-left: 2em;
+  text-indent: -2em;
+  overflow-wrap: anywhere;
+}
+</style>
+```
+
+Un grupo de concesionarios que creció sumando marcas y sedes opera hoy la postventa con seis sistemas que no se hablan entre sí, justo cuando la llegada masiva de vehículos eléctricos e híbridos cambia qué se repara, quién puede repararlo y qué datos exige el fabricante. La propuesta de arquitectura debe ordenar ese portafolio sin detener los talleres.
+
+::: {.callout-note}
+La empresa, sus cifras internas, sus sistemas y su presupuesto son ficticios. El contexto sectorial y normativo es real, y sus fuentes están al final del documento.
+:::
+
+## La empresa
+
+Movilia Grupo Automotor S.A.S. opera 22 sedes entre concesionarios y talleres en Antioquia, el Eje Cafetero y el Valle del Cauca. Representa cuatro marcas: dos de vehículos de combustión con más de veinte años en el país, una marca de vehículos eléctricos que llegó en 2024 y una de híbridos que llegó en 2025. Atiende unas 145.000 órdenes de servicio al año sobre una base de 210.000 clientes, entre particulares y flotas corporativas.
+
+La postventa (mantenimiento, reparación, garantías y repuestos) genera el 58 % del margen del grupo. La venta de vehículos nuevos deja poco margen; el negocio está en que el cliente vuelva al taller durante toda la vida del vehículo.
+
+## Qué cambió en el sector
+
+- **La electrificación dejó de ser marginal.** Entre enero y agosto de 2026 se matricularon en Colombia 33.889 vehículos eléctricos (222,5 % más que en el mismo periodo de 2025) y 63.210 híbridos (61 % más). En agosto de 2026, eléctricos e híbridos sumaron el 50,6 % de las matrículas nuevas del país.
+- **Un vehículo eléctrico cambia la postventa.** Tiene menos mantenimiento mecánico, pero exige diagnóstico de batería de alta tensión, técnicos certificados, actualizaciones de software y la aprobación del fabricante para cualquier garantía de batería. Buena parte de esa información la entrega el fabricante por sus propias plataformas.
+- **Las campañas de seguridad son una obligación legal.** Bajo la Ley 1480 de 2011 y la Circular Única de la Superintendencia de Industria y Comercio (SIC), el productor o representante de marca reporta a la SIC cada campaña de seguridad (recall) e informa su avance dentro de los primeros ocho días calendario de cada trimestre. Ese deber de reporte solo cesa a los tres años si el obligado demuestra la máxima diligencia para contactar a los consumidores afectados, y la SIC puede en cualquier momento fijar un plazo para la campaña o emitir órdenes. Los concesionarios son quienes contactan al cliente y ejecutan la revisión.
+- **El cobro cambió.** Desde octubre de 2025 opera Bre-B, el sistema de pagos inmediatos interoperable del Banco de la República: transferencias entre cualquier entidad en segundos, 24 horas al día, con llaves como el celular, la cédula o un código de comercio.
+- **La factura electrónica es la regla.** La facturación de cada orden de servicio se rige por el sistema de facturación electrónica de la DIAN (Resolución 000165 de 2023), cuyas normas quedaron compiladas en la Resolución Única 000227 de 2025.
+
+## Sistemas en operación
+
+::: {.table-responsive}
+
+| Sistema | Tecnología y antigüedad | Qué hace | Dueño |
+| :--- | :--- | :--- | :--- |
+| DMS de la marca A | Producto licenciado por el fabricante, instalado en cada sede, SQL Server, desde 2011 | Citas, órdenes de servicio, repuestos y garantías de la marca A. Es obligatorio por contrato de concesión | Fabricante de la marca A (licencia) y postventa (operación) |
+| DMS de la marca B | SaaS del fabricante, desde 2019 | Lo mismo que el anterior, para la marca B. También obligatorio por contrato | Fabricante de la marca B |
+| TallerPro | Aplicación propia en PHP 5 y MySQL, desde 2014 | Órdenes de servicio de las sedes multimarca y de las marcas de eléctricos e híbridos, asignación de mecánicos, tiempos por operación | TI interno |
+| ERP contable | Producto comercial instalado en el centro de datos del grupo, desde 2016 | Contabilidad, cartera, facturación electrónica mediante un proveedor tecnológico autorizado, inventario consolidado de repuestos con sincronización nocturna desde los DMS y TallerPro | Gerencia financiera |
+| Agenda comercial | WhatsApp Business en los celulares de los asesores y una hoja de cálculo compartida por sede | Agendamiento de citas, confirmaciones, recordatorios de mantenimiento | Cada jefe de sede |
+| Libro de campañas | Hoja de cálculo con macros, mantenida por la coordinación de garantías, desde 2017 | Cruza los números de identificación vehicular (VIN) de cada circular de campaña del fabricante contra los vehículos atendidos en las 22 sedes, genera la lista de clientes por llamar, registra cada intento de contacto y produce el archivo trimestral de avance que el representante de marca envía a la SIC | Coordinación de garantías |
+
+:::
+
+Las plataformas de diagnóstico y garantías de cada fabricante son externas al grupo: los técnicos entran a ellas con usuario propio, y los reportes de batería de la marca de eléctricos llegan en PDF por correo.
+
+## Síntomas medidos
+
+- El 31 % de los vehículos que se atendieron en más de una sede no tiene el historial de servicio completo en ninguna de ellas.
+- La inasistencia a citas es del 18 %, y confirmar una cita toma en promedio 26 horas.
+- Solo 2 de las 22 sedes tienen técnicos certificados para alta tensión. Aprobar una garantía de batería con el fabricante tarda en promedio 9 días.
+- El inventario consolidado de repuestos tiene 24 horas de desfase: el 7 % de las órdenes se detiene esperando un repuesto que el sistema mostraba como disponible.
+- Los pagos por transferencia se concilian a mano contra las órdenes de servicio, con dos días de retraso.
+
+## Interesados
+
+| Interesado | Preocupación principal |
+| :--- | :--- |
+| Presidencia del grupo | Que la postventa conserve su margen mientras el parque se electrifica |
+| Gerencia de postventa | Ocupación de talleres, tiempos de entrega y satisfacción del cliente |
+| Coordinación de garantías y campañas | Aprobación rápida de garantías y cumplimiento de las campañas de seguridad |
+| Jefes de taller de las sedes | Que el nuevo sistema no les agregue trabajo administrativo ni detenga la operación |
+| Fabricantes y representantes de marca | Cumplimiento del contrato de concesión, calidad del servicio de su marca y acceso controlado a sus datos |
+| Clientes particulares y flotas | Agendar sin llamar, saber el estado de su vehículo y pagar sin fricción |
+
+## Restricciones
+
+- Los DMS de las marcas A y B son obligatorios por contrato de concesión hasta 2030: no se pueden retirar, solo integrar.
+- El presupuesto de inversión para 2027 es de COP 2.800 millones, y el equipo de TI interno tiene cuatro personas.
+- Los datos personales de los clientes se tratan bajo la Ley 1581 de 2012. La telemetría de los vehículos es del fabricante, y solo se accede por sus canales oficiales con autorización del propietario.
+- Ninguna sede puede detener su operación más de cuatro horas por una migración.
+
+## Metas del negocio
+
+| Meta | Línea base | Objetivo a diciembre de 2027 |
+| :--- | :---: | :---: |
+| Historial de servicio incompleto en vehículos atendidos en varias sedes | 31 % | Menos del 3 % |
+| Inasistencia a citas | 18 % | 8 % |
+| Días para aprobar una garantía de batería | 9 | 3 |
+| Retraso en la conciliación de pagos | 2 días | Mismo día |
+
+## Decisiones que la propuesta debe resolver
+
+1. Qué capacidades se centralizan en el grupo y cuáles permanecen en los DMS de cada marca.
+2. Cuál es el sistema de registro del historial de cada vehículo, identificado por su VIN, y cómo se mantiene coherente con los DMS.
+3. Cómo se integra la información de diagnóstico y de batería de los fabricantes (API, eventos o archivos), y con qué autorización del propietario.
+4. Qué pasa con TallerPro: se reemplaza, se encapsula o se sustituye por partes.
+5. Cómo se incorporan Bre-B y la factura electrónica al cierre de la orden de servicio sin crear otra conciliación manual.
+
+## Fuentes consultadas
+
+::: {.referencias}
+
+Banco de la República. (2026, 21 de septiembre). *Preguntas frecuentes de Bre-B*. <https://www.banrep.gov.co/es/bre-b/preguntas-frecuentes>
+
+Dirección de Impuestos y Aduanas Nacionales. (2023, 1 de noviembre). *Resolución 000165 de 2023*. <https://www.dian.gov.co/normatividad/Normatividad/Resoluci%C3%B3n%20000165%20de%2001-11-2023.pdf>
+
+Dirección de Impuestos y Aduanas Nacionales. (2025, 23 de septiembre). *Resolución 000227 de 2025, por la cual se expide la Resolución Única en Materia Tributaria, Aduanera y Cambiaria*. <https://www.dian.gov.co/normatividad/Normatividad/Resoluci%C3%B3n%20000227%20de%2023-09-2025.pdf>
+
+Fenalco y ANDI. (2026). *Informe vehículos eléctricos e híbridos a agosto 2026*. <https://www.fenalco.com.co/blog/gremial-4/informe-vehiculos-electricos-e-hibridos-a-agosto-2026-9110>
+
+Moreno Flórez, M. A. (2026, 8 de septiembre). Vehículos eléctricos e híbridos ya representan la mitad del mercado automotor en Colombia, con un crecimiento de hasta el 176 %. *El Tiempo*. <https://www.eltiempo.com/economia/vehiculos-electricos-e-hibridos-ya-representan-la-mitad-del-mercado-automotor-en-colombia-con-un-crecimiento-de-hasta-el-3584628>
+
+Superintendencia de Industria y Comercio. (2021). *Circular Única, Título II: Protección al consumidor*. <https://www.sic.gov.co/sites/default/files/normatividad/062021/Titulo%20II-Act%202021.pdf>
+
+:::

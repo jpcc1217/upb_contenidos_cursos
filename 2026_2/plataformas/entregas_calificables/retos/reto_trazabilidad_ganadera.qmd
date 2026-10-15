@@ -1,0 +1,176 @@
+---
+title: "Trazabilidad ganadera de la finca al comprador"
+format:
+  html:
+    theme: cosmo
+    callout-appearance: minimal
+    embed-resources: true
+    toc: true
+    toc-depth: 3
+    highlight-style: dracula
+    code-block-bg: true
+    code-copy: true
+lang: es
+---
+
+```{=html}
+<style>
+/* Contenedor y fondo Dracula Dark de alto contraste para bloques de código */
+div.sourceCode, pre.sourceCode, pre > code.sourceCode {
+  background-color: #282a36 !important;
+  color: #f8f8f2 !important;
+  border-radius: 8px !important;
+}
+
+div.sourceCode {
+  border: 1px solid #44475a !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+  margin: 1.25rem 0 !important;
+}
+
+div.sourceCode pre.sourceCode {
+  background-color: transparent !important;
+  margin: 0 !important;
+  padding: 0.9rem 1.1rem !important;
+}
+
+div.sourceCode pre.sourceCode code {
+  background-color: transparent !important;
+  color: #f8f8f2 !important;
+  font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+/* Botón de copia adaptado a tema oscuro */
+.code-copy-button {
+  background-color: #44475a !important;
+  border: 1px solid #6272a4 !important;
+  color: #f8f8f2 !important;
+  border-radius: 4px !important;
+  opacity: 0.85;
+}
+
+.code-copy-button:hover {
+  background-color: #6272a4 !important;
+  opacity: 1;
+}
+
+.code-copy-button i {
+  color: #f8f8f2 !important;
+}
+
+/* Código inline sobrio en texto plano */
+code:not(.sourceCode) {
+  background-color: #f1f3f5 !important;
+  color: #c7254e !important;
+  padding: 0.18em 0.4em !important;
+  border-radius: 4px !important;
+  font-size: 0.9em;
+}
+
+/* Referencias en APA con sangría francesa */
+.referencias p {
+  padding-left: 2em;
+  text-indent: -2em;
+  overflow-wrap: anywhere;
+}
+</style>
+```
+
+Una subasta ganadera que mueve 180.000 animales al año recibe cada lote leyendo chapetas a mano y tramitando guías en un portal oficial que cambió de versión este año. La identificación electrónica obligatoria, la trazabilidad que exigen los frigoríficos exportadores y la presión por demostrar que el ganado no viene de zonas deforestadas convierten ese cuello de botella en un riesgo comercial. La propuesta de arquitectura debe digitalizar la trazabilidad del animal desde la finca hasta el comprador, en un entorno rural con conectividad intermitente.
+
+::: {.callout-note}
+La empresa, sus cifras internas, sus sistemas y su presupuesto son ficticios. El contexto sectorial y normativo es real, y sus fuentes están al final del documento.
+:::
+
+## La empresa
+
+Sabana Viva Ganadería S.A.S. es una comercializadora y subasta ganadera con tres plazas en Córdoba y Meta. Compra y vende por cuenta de unos 4.200 ganaderos proveedores, con fincas de entre 5 y 3.000 animales, y comercializa unos 180.000 bovinos al año. Sus compradores son cebadores y frigoríficos, dos de ellos habilitados para exportar carne a Asia.
+
+Cada plaza hace dos subastas presenciales por semana. Desde 2023 las transmite en video, y los compradores remotos pujan por teléfono. La empresa cobra una comisión sobre cada venta y liquida al ganadero después de recibir el pago del comprador.
+
+## Qué cambió en el sector
+
+- **La identificación individual electrónica es obligatoria.** La Resolución 000219 del 7 de julio de 2026 del Ministerio de Agricultura hizo obligatoria la identificación de bovinos y bufalinos con el Dispositivo de Identificación Nacional (DIN), que combina un dispositivo visual y uno electrónico RFID. La implementación es gradual: primero el registro de propietarios, predios e inventarios, y después la identificación individual por categoría de edad. Un animal que debe estar identificado y no lo está no obtiene la guía sanitaria de movilización interna, y sin guía no puede movilizarse legalmente.
+- **El sistema oficial cambió de versión.** El ICA migró la expedición de las guías sanitarias de movilización interna a SINIGAN V6. La fecha anunciada para la primera guía, el 2 de marzo de 2026, se aplazó, y la nueva versión entró en operación el 20 de abril de 2026, después de apagar la anterior durante un fin de semana para migrar los inventarios. Productores y transportadores tuvieron que registrarse de nuevo, y el ICA reconoce diferencias de inventarios y predios heredadas de esa migración.
+- **Los mercados de exportación piden trazabilidad.** Colombia exporta carne bovina a decenas de destinos, y en 2026 China es su principal comprador en Asia. Los frigoríficos exportadores exigen a sus proveedores el origen individual de cada animal.
+- **La deforestación entró en las reglas de comercio.** El Reglamento (UE) 2023/1115 sobre productos libres de deforestación (EUDR), aplazado por el Reglamento (UE) 2025/2650, se aplica desde el 30 de diciembre de 2026 a operadores grandes y medianos y desde el 30 de junio de 2027 a los pequeños. Para el ganado bovino exige la geolocalización del predio de origen y la prueba de que no hubo deforestación después del 31 de diciembre de 2020. La junta de Sabana Viva quiere que la empresa pueda demostrar el origen libre de deforestación de sus lotes, para abrir mercados que lo exijan y para responder a los frigoríficos que ya lo preguntan.
+
+## Sistemas en operación
+
+::: {.table-responsive}
+
+| Sistema | Tecnología y antigüedad | Qué hace | Dueño |
+| :--- | :--- | :--- | :--- |
+| Martillo | Aplicación de escritorio en Visual Basic 6, migrada de Access a SQL Server, desde 2009 | Registro de lotes, orden de la subasta, pujas presenciales, adjudicación y liquidación de cada venta | Gerencia de plazas |
+| Transmisión de subastas | Transmisión en video por una plataforma pública y un grupo de WhatsApp por plaza, desde 2023 | Los compradores remotos ven la subasta y pujan llamando a un asesor que grita la puja en el recinto | Área comercial |
+| ERP contable | SaaS contable colombiano, desde 2020 | Contabilidad, cartera, facturación electrónica y pagos a ganaderos por transferencia | Gerencia financiera |
+| Registro de proveedores | Una hoja de cálculo por plaza, desde 2012 | Datos del ganadero y de su predio (número de registro sanitario ante el ICA, municipio, vereda), cuenta bancaria y historial de lotes | Cada coordinador de plaza |
+| Pesaje | Aplicación en tableta conectada a la báscula por Bluetooth, desde 2021 | Registra el peso de cada lote y sube los pesos al final del día, cuando hay conexión | Operación de plazas |
+| Trámite de guías | Proceso manual de un auxiliar por plaza en el portal de SINIGAN | Tramita las guías de movilización de entrada y de salida con los datos de la hoja de cálculo y las chapetas leídas a mano, y antes de aceptar un lote consulta en SINIGAN que el predio de origen tenga vigente su registro de vacunación | Coordinación de plazas |
+
+:::
+
+## Síntomas medidos
+
+- Recibir un lote en plaza toma en promedio 47 minutos, entre la lectura de chapetas y el trámite de la guía. En días de subasta hay filas de camiones con animales esperando.
+- El 4 % de los lotes llega con diferencias entre las chapetas leídas y las registradas en la guía.
+- Las pujas remotas son apenas el 12 % del volumen, aunque los compradores de otras regiones piden una subasta en línea de verdad.
+- El ganadero recibe su pago cinco días hábiles después de la venta, y muchos pequeños productores prefieren efectivo porque no confían en la transferencia.
+- La empresa no tiene la ubicación geográfica de ninguna finca proveedora, solo el municipio y la vereda. No puede presentar ninguna evidencia sobre deforestación.
+
+## Interesados
+
+| Interesado | Preocupación principal |
+| :--- | :--- |
+| Gerencia general | Crecer en volumen y entrar a mercados más exigentes sin perder a los ganaderos pequeños |
+| Ganaderos proveedores | Vender rápido, recibir el pago completo y a tiempo, y no cargar con más trámites |
+| Compradores (frigoríficos y cebadores) | Origen demostrable de cada animal, estado sanitario y una subasta en línea confiable |
+| Operadores de plaza | Recibir lotes sin filas y sin reprocesos en el portal oficial |
+| ICA como autoridad sanitaria | Movilizaciones con guía, animales identificados y predios con vacunación vigente |
+| Transportadores | Tiempos de espera cortos y guías correctas en la carretera |
+
+## Restricciones
+
+- Dos de las tres plazas tienen conexión a internet inestable. La recepción de lotes debe poder operar sin conexión y sincronizar después.
+- El presupuesto de inversión para 2027 es de COP 1.600 millones. El desarrollo está tercerizado y hay un solo coordinador de TI interno.
+- SINIGAN es el sistema oficial del ICA y no se reemplaza. Hoy la empresa no tiene un canal de integración documentado con SINIGAN V6, así que la propuesta debe funcionar con el portal y también con una integración directa si llegara a existir.
+- Los datos de los ganaderos se tratan bajo la Ley 1581 de 2012. La ubicación exacta de una finca es información sensible para el negocio por el riesgo de abigeato, y su acceso debe restringirse.
+
+## Metas del negocio
+
+| Meta | Línea base | Objetivo a diciembre de 2027 |
+| :--- | :---: | :---: |
+| Minutos para recibir un lote en plaza | 47 | 10 |
+| Lotes con diferencias entre chapetas y guía | 4 % | Menos del 0,5 % |
+| Participación de las pujas remotas en el volumen | 12 % | 40 % |
+| Fincas proveedoras de frigoríficos exportadores con polígono georreferenciado y evaluación de deforestación | 0 % | 100 % |
+
+## Decisiones que la propuesta debe resolver
+
+1. Cuál es el sistema de registro del animal individual dentro de la empresa y cómo se concilia con SINIGAN.
+2. Qué arquitectura permite recibir lotes sin conexión: dónde se procesa, cómo se sincroniza y cómo se resuelven los conflictos.
+3. Qué se hace con Martillo para ofrecer una subasta en línea: se construye sobre él, se reemplaza o se sustituye por partes.
+4. Cómo se obtiene, se protege y se mantiene el polígono de cada finca, junto con la evidencia de no deforestación.
+5. Cómo se paga al ganadero el mismo día sin excluir a quien no tiene cuenta bancaria.
+
+## Fuentes consultadas
+
+::: {.referencias}
+
+Baker McKenzie. (2026, 8 de mayo). *European Union: EU Commission publishes simplification review of EUDR*. <https://www.bakermckenzie.com/en/insight/publications/2026/05/eu-commission-publishes-simplification-review-of-eudr>
+
+Castro, N. (2026, 8 de julio). *¿En qué va el Sinigán V6? El balance que deja la implementación del nuevo sistema de trazabilidad bovina*. CONtexto ganadero. <https://www.contextoganadero.com/gremialidad/en-que-va-el-sinigan-v6-el-balance-que-deja-la-implementacion-del-nuevo-sistema-de-trazabilidad-bovina>
+
+Comisión Europea. (2026, 28 de enero). *Delay until December 2026 and other developments in the implementation of the EUDR Regulation*. Access2Markets. <https://trade.ec.europa.eu/access-to-markets/en/news/delay-until-december-2026-and-other-developments-implementation-eudr-regulation>
+
+Fonseca, P. (2026, 16 de abril). *Una nueva era en trazabilidad comienza este lunes 20 de abril: Sinigán V6 entra en operación*. CONtexto ganadero. <https://www.contextoganadero.com/ganaderia-sostenible/una-nueva-era-en-trazabilidad-comienza-este-lunes-20-de-abril-sinigan-v6-entra-en-operacion>
+
+Instituto Colombiano Agropecuario. (2026, 30 de enero). *ICA amplía plazos para la expedición de la primera guía sanitaria de movilización de bovinos y bufalinos en SINIGAN V6*. <https://www.ica.gov.co/noticias/ica-amplia-plazos-siniganv6>
+
+Ministerio de Agricultura y Desarrollo Rural. (2026, 7 de julio). *Resolución 000219 de 2026*. Diario Oficial No. 53.561. <https://normograma.com/keralty/compilacion/docs/resolucion_minagricultura_0219_2026.htm>
+
+Rodríguez Triana, D. K. (2026, 20 de julio). La conquista de las exportaciones de carnes colombianas se enruta por Asia-Pacífico. *Portafolio*. <https://www.portafolio.co/negocios/comercio/la-conquista-de-las-exportaciones-de-carnes-colombianas-se-enruta-por-asia-pacifico-498575>
+
+:::

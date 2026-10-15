@@ -1,0 +1,180 @@
+---
+title: "Microcrédito para emprendedores con finanzas abiertas"
+format:
+  html:
+    theme: cosmo
+    callout-appearance: minimal
+    embed-resources: true
+    toc: true
+    toc-depth: 3
+    highlight-style: dracula
+    code-block-bg: true
+    code-copy: true
+lang: es
+---
+
+```{=html}
+<style>
+/* Contenedor y fondo Dracula Dark de alto contraste para bloques de código */
+div.sourceCode, pre.sourceCode, pre > code.sourceCode {
+  background-color: #282a36 !important;
+  color: #f8f8f2 !important;
+  border-radius: 8px !important;
+}
+
+div.sourceCode {
+  border: 1px solid #44475a !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+  margin: 1.25rem 0 !important;
+}
+
+div.sourceCode pre.sourceCode {
+  background-color: transparent !important;
+  margin: 0 !important;
+  padding: 0.9rem 1.1rem !important;
+}
+
+div.sourceCode pre.sourceCode code {
+  background-color: transparent !important;
+  color: #f8f8f2 !important;
+  font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+/* Botón de copia adaptado a tema oscuro */
+.code-copy-button {
+  background-color: #44475a !important;
+  border: 1px solid #6272a4 !important;
+  color: #f8f8f2 !important;
+  border-radius: 4px !important;
+  opacity: 0.85;
+}
+
+.code-copy-button:hover {
+  background-color: #6272a4 !important;
+  opacity: 1;
+}
+
+.code-copy-button i {
+  color: #f8f8f2 !important;
+}
+
+/* Código inline sobrio en texto plano */
+code:not(.sourceCode) {
+  background-color: #f1f3f5 !important;
+  color: #c7254e !important;
+  padding: 0.18em 0.4em !important;
+  border-radius: 4px !important;
+  font-size: 0.9em;
+}
+
+/* Referencias en APA con sangría francesa */
+.referencias p {
+  padding-left: 2em;
+  text-indent: -2em;
+  overflow-wrap: anywhere;
+}
+</style>
+```
+
+Una compañía de financiamiento que presta a emprendedores rechaza a la mayoría de sus solicitantes porque no tienen historial crediticio formal, y decide sus créditos en seis días sobre un core de hace casi tres décadas. Las finanzas abiertas obligatorias la vuelven a la vez proveedora y receptora de datos financieros. La propuesta de arquitectura debe aprovechar ese cambio sin comprometer el core ni el consentimiento de los clientes.
+
+::: {.callout-note}
+La empresa, sus cifras internas, sus sistemas y su presupuesto son ficticios. El contexto sectorial y normativo es real, y sus fuentes están al final del documento.
+:::
+
+## La empresa
+
+Brotar Compañía de Financiamiento S.A. es una entidad vigilada por la Superintendencia Financiera de Colombia (SFC), con 26 oficinas y unos 140.000 clientes. Su nicho es el microcrédito y el crédito de consumo para emprendedores y pequeños negocios: tiendas, talleres, confecciones y comercio en línea. Capta recursos mediante CDT y cuentas de ahorro, y coloca créditos de entre COP 1 y 60 millones.
+
+Muchos de sus clientes venden por redes sociales, reciben pagos por transferencia y no llevan contabilidad formal. Ese flujo de dinero es la mejor evidencia de su capacidad de pago, pero la compañía no lo puede ver.
+
+## Qué cambió en el sector
+
+- **Las finanzas abiertas son obligatorias.** El Decreto 368 del 7 de abril de 2026 del Ministerio de Hacienda creó el sistema de finanzas abiertas obligatorio: las entidades vigiladas por la SFC deben participar como proveedoras y como receptoras de datos, siempre con el consentimiento previo, expreso e informado del consumidor. Terceros no vigilados pueden participar de forma voluntaria.
+- **La SFC define el estándar técnico, y sus plazos ya cambiaron.** El decreto le asigna a la SFC el directorio de participantes, los estándares técnicos, tecnológicos, funcionales y operativos, y un cronograma de estandarización para una implementación gradual. El 31 de agosto de 2026 la SFC publicó para comentarios un proyecto de cronograma de expedición de estándares, y el Decreto 1489 del 6 de octubre de 2026 amplió de seis a doce meses el plazo para publicar el cronograma definitivo y de doce a dieciocho meses el del directorio de participantes. El intercambio se hace por interfaces de programación de aplicaciones (API).
+- **El dinero ya se mueve al instante.** Desde octubre de 2025 opera Bre-B, el sistema de pagos inmediatos interoperable del Banco de la República: transferencias entre cualquier banco, cooperativa, fintech o billetera en segundos, 24 horas al día, identificando al receptor con una llave (celular, cédula, correo, código alfanumérico o código de comercio).
+- **Los datos financieros tienen reglas propias.** La Ley 1266 de 2008 regula el reporte a las centrales de información financiera y la Ley 1581 de 2012 el tratamiento de datos personales. La prevención del lavado de activos se rige por el SARLAFT de la SFC.
+
+## Sistemas en operación
+
+::: {.table-responsive}
+
+| Sistema | Tecnología y antigüedad | Qué hace | Dueño |
+| :--- | :--- | :--- | :--- |
+| Core de crédito y depósitos | IBM i (AS/400) con programas en RPG, desde 1998 | Cuentas, créditos, causación diaria de intereses en proceso nocturno, pagos y saldos | Vicepresidencia de operaciones |
+| Portal de originación | Java 8 con JSF, desde 2016 | Formulario web de solicitud de crédito y carga de documentos; en oficina, un asesor diligencia el mismo formulario | Vicepresidencia comercial |
+| Modelo de calificación | Hoja de cálculo con macros, mantenida por el área de riesgo | Calcula el puntaje de cada solicitud con datos del formulario y con el reporte de la central de riesgo, que un analista consulta y descarga a mano del portal de la central | Vicepresidencia de riesgo |
+| Aplicación móvil | Aplicación híbrida en Ionic, desde 2019 | Consulta de saldos y pago de cuotas por PSE | Vicepresidencia comercial |
+| CRM | SaaS comercial, desde 2021 | Gestión de prospectos, campañas y gestión de cobranza | Vicepresidencia comercial |
+| Procesos regulatorios | Consultas SQL programadas sobre una réplica del core y un generador de reportes, desde 2008 | Produce los formatos periódicos para la SFC, el reporte mensual a las centrales de información financiera y las comunicaciones que se envían al cliente antes de reportarlo en mora | Vicepresidencia de riesgo y cumplimiento |
+
+:::
+
+## Síntomas medidos
+
+- Una decisión de crédito tarda en promedio seis días hábiles, y el 38 % de las solicitudes se abandona antes de terminar.
+- El 61 % de los solicitantes no tiene historial crediticio formal, y el modelo actual los rechaza casi en su totalidad.
+- Los desembolsos se hacen por transferencia interbancaria al día hábil siguiente, y el 44 % de las cuotas se sigue pagando en efectivo en las oficinas.
+- La compañía no expone ninguna API hacia terceros, y el decreto la obliga a ser proveedora de datos.
+- Las autorizaciones de tratamiento de datos se firman en papel o en PDF. No hay forma de saber quién revocó una autorización ni de aplicar esa revocatoria en todos los sistemas.
+
+## Interesados
+
+| Interesado | Preocupación principal |
+| :--- | :--- |
+| Presidencia y junta directiva | Crecer la cartera sana y cumplir el decreto sin sanciones |
+| Vicepresidencia de riesgo | Calificar mejor a quien no tiene historial, sin aumentar la morosidad |
+| Oficial de cumplimiento y de protección de datos | Consentimiento demostrable, SARLAFT y trazabilidad de cada dato compartido |
+| Vicepresidencia comercial | Decisión rápida, experiencia digital y menos abandono |
+| Emprendedores clientes | Acceder a crédito con lo que sí pueden demostrar, y controlar quién ve sus datos |
+| Superintendencia Financiera y terceros receptores | Cumplimiento del estándar técnico y del cronograma, e intercambio seguro con fintech aliadas |
+
+## Restricciones
+
+- El core en IBM i se mantiene hasta 2029 por contrato y por riesgo operativo. Las capacidades nuevas deben integrarse sin modificar su lógica de causación.
+- El presupuesto de inversión para 2027 es de COP 4.500 millones, con un equipo de TI de doce personas.
+- Todo intercambio de datos exige consentimiento previo, expreso, informado y revocable, con evidencia de cada autorización y de cada revocatoria.
+- El estándar técnico de la SFC todavía se está definiendo: la arquitectura debe absorber cambios de especificación sin reescribir los sistemas que la consumen.
+
+## Metas del negocio
+
+| Meta | Línea base | Objetivo a diciembre de 2027 |
+| :--- | :---: | :---: |
+| Tiempo de decisión de crédito | 6 días hábiles | 24 horas |
+| Solicitudes abandonadas | 38 % | 15 % |
+| Tiempo de desembolso a clientes con llave Bre-B | Día hábil siguiente | Menos de un minuto |
+| Autorizaciones de datos con registro digital, trazable y revocable | 0 % | 100 % |
+
+## Decisiones que la propuesta debe resolver
+
+1. Qué datos expone la compañía como proveedora y cuáles consume como receptora, y con qué modelo de consentimiento.
+2. Dónde vive el registro de autorizaciones y cómo se propaga una revocatoria a todos los sistemas que usan el dato.
+3. Cómo se incorpora la información de finanzas abiertas (ingresos, pagos recibidos por Bre-B, movimientos) a la calificación de crédito sin modificar el core.
+4. Qué patrón de integración protege al core de la carga que generan las API externas.
+5. Cómo se gobiernan los cambios del estándar técnico que publique la SFC.
+
+## Fuentes consultadas
+
+::: {.referencias}
+
+Banco de la República. (2026, 21 de septiembre). *Preguntas frecuentes de Bre-B*. <https://www.banrep.gov.co/es/bre-b/preguntas-frecuentes>
+
+Congreso de la República de Colombia. (2008, 31 de diciembre). *Ley 1266 de 2008*. Función Pública. <https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=34488>
+
+Congreso de la República de Colombia. (2012, 17 de octubre). *Ley 1581 de 2012*. Función Pública. <https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=49981>
+
+Congreso de la República de Colombia. (2021, 29 de octubre). *Ley 2157 de 2021*. Función Pública. <https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=173246>
+
+Pérez-Llorca. (2026, 13 de octubre). *Gobierno amplía plazos de implementación de finanzas abiertas: lo que deben tener presente las compañías del sector asegurador*. <https://www.perezllorca.com/es-co/actualidad/boletin/gobierno-amplia-plazos-de-implementacion-de-finanzas-abiertas-lo-que-deben-tener-presente-las-companias-del-sector-asegurador/>
+
+Presidencia de la República de Colombia. (2026, 7 de abril). *Decreto 368 de 2026*. Función Pública. <https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=275576>
+
+Superintendencia Financiera de Colombia. (2026a, 9 de abril). *Finanzas abiertas obligatorias impulsarán el desarrollo del sistema y la inclusión financiera en el país*. <https://www.superfinanciera.gov.co/publicaciones/10116081/finanzas-abiertas-obligatorias-impulsaran-el-desarrollo-del-sistema-y-la-inclusion-financiera-en-el-pais/>
+
+Superintendencia Financiera de Colombia. (2026b, 31 de agosto). *Proyecto de carta circular, 31 de agosto de 2026*. <https://www.superfinanciera.gov.co/publicaciones/10116237/proyecto-de-carta-circular-agosto-31-de-2026/>
+
+Unidad de Proyección Normativa y Estudios de Regulación Financiera. (2026, septiembre). *Ajustes en los plazos de implementación del sistema de finanzas abiertas obligatorio* [Documento técnico]. <https://www.urf.gov.co/documents/283253/3555757/003_Documento_Tecnico.pdf/de7566c4-26f4-9efe-d5b6-a410a8eaef8f?t=1790109497026>
+
+:::

@@ -1,0 +1,176 @@
+---
+title: "Catálogo musical licenciado para inteligencia artificial"
+format:
+  html:
+    theme: cosmo
+    callout-appearance: minimal
+    embed-resources: true
+    toc: true
+    toc-depth: 3
+    highlight-style: dracula
+    code-block-bg: true
+    code-copy: true
+lang: es
+---
+
+```{=html}
+<style>
+/* Contenedor y fondo Dracula Dark de alto contraste para bloques de código */
+div.sourceCode, pre.sourceCode, pre > code.sourceCode {
+  background-color: #282a36 !important;
+  color: #f8f8f2 !important;
+  border-radius: 8px !important;
+}
+
+div.sourceCode {
+  border: 1px solid #44475a !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+  margin: 1.25rem 0 !important;
+}
+
+div.sourceCode pre.sourceCode {
+  background-color: transparent !important;
+  margin: 0 !important;
+  padding: 0.9rem 1.1rem !important;
+}
+
+div.sourceCode pre.sourceCode code {
+  background-color: transparent !important;
+  color: #f8f8f2 !important;
+  font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+/* Botón de copia adaptado a tema oscuro */
+.code-copy-button {
+  background-color: #44475a !important;
+  border: 1px solid #6272a4 !important;
+  color: #f8f8f2 !important;
+  border-radius: 4px !important;
+  opacity: 0.85;
+}
+
+.code-copy-button:hover {
+  background-color: #6272a4 !important;
+  opacity: 1;
+}
+
+.code-copy-button i {
+  color: #f8f8f2 !important;
+}
+
+/* Código inline sobrio en texto plano */
+code:not(.sourceCode) {
+  background-color: #f1f3f5 !important;
+  color: #c7254e !important;
+  padding: 0.18em 0.4em !important;
+  border-radius: 4px !important;
+  font-size: 0.9em;
+}
+
+/* Referencias en APA con sangría francesa */
+.referencias p {
+  padding-left: 2em;
+  text-indent: -2em;
+  overflow-wrap: anywhere;
+}
+</style>
+```
+
+Una editora musical independiente recibe propuestas para licenciar su catálogo a plataformas de inteligencia artificial generativa. Hoy no sabe qué obras puede licenciar, quién debe autorizarlo ni cómo cobraría por ese uso: sus derechos viven en contratos escaneados y sus regalías en una hoja de cálculo. La propuesta de arquitectura debe convertir ese catálogo en un activo licenciable y auditable.
+
+::: {.callout-note}
+La empresa, sus cifras internas, sus sistemas y su presupuesto son ficticios. El contexto sectorial y normativo es real, y sus fuentes están al final del documento.
+:::
+
+## La empresa
+
+Resonancia Editorial Musical S.A.S., con sede en Medellín, es a la vez editora (administra los derechos de las composiciones) y distribuidora (entrega las grabaciones a las plataformas de streaming). Su catálogo reúne 48.000 grabaciones y 21.000 composiciones de unos 1.300 artistas, compositores y productores latinoamericanos. Una línea de negocio más reciente vende licencias de uso de 9.000 beats instrumentales a creadores de contenido y artistas emergentes.
+
+Sus ingresos vienen del streaming, de la sincronización (música en publicidad, series y videojuegos) y de la venta de licencias de beats. Liquida regalías a sus artistas cada trimestre.
+
+## Qué cambió en el sector
+
+- **La IA generativa de música pasó a ser una categoría licenciada.** En octubre de 2025 Universal Music Group cerró con un acuerdo su demanda contra Udio y licenció su catálogo para una plataforma de creación con IA anunciada para 2026. El 25 de noviembre de 2025 Warner Music Group llegó a un acuerdo similar con Suno, que el 9 de septiembre de 2026 lanzó sus modelos v6, desarrollados con Warner, BMG y Believe. Las plataformas buscan ahora catálogos independientes con derechos claros y reporte de uso.
+- **Europa exige transparencia sobre el contenido generado con IA.** Las obligaciones de transparencia del artículo 50 del Reglamento de IA de la Unión Europea se aplican desde el 2 de agosto de 2026. Los proveedores de sistemas generativos deben marcar su contenido de forma detectable, con un periodo de gracia hasta el 2 de diciembre de 2026 solo para los sistemas que ya estaban en el mercado antes del 2 de agosto. Las plataformas licenciatarias trasladan esa exigencia a sus proveedores de catálogo en forma de metadatos de procedencia.
+- **En Colombia, lo generado solo por IA no es obra registrable.** La Dirección Nacional de Derecho de Autor (DNDA) ha negado el registro de creaciones generadas por IA, porque la Ley 23 de 1982 y la Decisión Andina 351 de 1993 protegen únicamente creaciones humanas. Para una editora, distinguir qué es creación humana, qué es asistido y qué es generado define qué puede registrar, licenciar y cobrar.
+- **Los derechos se cobran por varios canales.** Las regalías de autores y compositores pasan por sociedades de gestión colectiva como SAYCO, las de intérpretes y productores fonográficos por ACINPRO, y las de streaming por el distribuidor. Cada canal usa identificadores distintos: ISRC para la grabación e ISWC para la composición.
+
+## Sistemas en operación
+
+::: {.table-responsive}
+
+| Sistema | Tecnología y antigüedad | Qué hace | Dueño |
+| :--- | :--- | :--- | :--- |
+| Cantera | Aplicación propia en Django 1.11 y PostgreSQL 9.6, desde 2017 | Catálogo de grabaciones y composiciones: títulos, artistas, ISRC, ISWC, porcentajes de participación por contrato | Dirección de catálogo |
+| Agregador de distribución | SaaS de un tercero, desde 2018 | Entrega las grabaciones y sus metadatos a las plataformas de streaming con el estándar DDEX, y devuelve reportes mensuales de reproducciones e ingresos en CSV | Dirección de catálogo (contrato vigente hasta 2028) |
+| Libro de regalías | Hoja de cálculo por trimestre, con 140 pestañas y macros | Importa los CSV del agregador y los reportes de las sociedades de gestión, aplica los porcentajes de cada contrato, descuenta de cada liquidación los anticipos entregados a los artistas hasta que se recuperan y genera los estados de cuenta | Finanzas y regalías |
+| Repositorio de contratos | Unos 3.100 contratos en PDF escaneado en una unidad compartida en la nube | Evidencia legal de qué derechos cedió cada titular, en qué territorios y para qué usos | Área legal |
+| Tienda de beats | WordPress con WooCommerce, desde 2020 | Venta de licencias básica, premium y exclusiva de los beats, con pago en línea por pasarela | Línea de beats |
+| Identificación de contenido | Servicio externo de huellas de audio, alimentado por un script programado que sube cada noche las grabaciones nuevas | Detecta usos del catálogo en plataformas de video y reclama los ingresos | TI (una persona) |
+
+:::
+
+## Síntomas medidos
+
+- Liquidar las regalías de un trimestre toma 34 días hábiles, y el 6 % de los estados de cuenta genera reclamos por porcentajes mal aplicados.
+- El 42 % de los contratos no dice nada sobre el uso de la obra para entrenar o alimentar sistemas de IA. Nadie puede afirmar hoy qué parte del catálogo es licenciable para ese fin.
+- El 11 % de las grabaciones no tiene su ISWC vinculado a la composición, así que sus regalías editoriales no se cobran.
+- Dos plataformas de IA pidieron en 2026 una entrega del catálogo con estado de autorización por obra y un reporte mensual de uso, y la empresa no pudo responder.
+- En 2026 se vendieron tres beats como licencia exclusiva dos veces cada uno.
+
+## Interesados
+
+| Interesado | Preocupación principal |
+| :--- | :--- |
+| Dirección general | Abrir la línea de licencias para IA sin exponerse a demandas ni perder artistas |
+| Artistas, compositores y productores | Decidir si su obra se usa con IA, cobrar lo justo y entender su estado de cuenta |
+| Área legal y de licencias | Saber con certeza qué derechos tiene la empresa sobre cada obra y en qué territorio |
+| Finanzas y regalías | Liquidar a tiempo, sin errores y con evidencia auditable |
+| Plataformas de IA licenciatarias | Recibir catálogo con derechos claros, metadatos de procedencia y un canal de reporte de uso |
+| Sociedades de gestión colectiva y agregador | Identificadores correctos y reportes consistentes con los suyos |
+
+## Restricciones
+
+- Ninguna grabación ni composición se entrega a un tercero de IA sin la autorización expresa y registrada de todos sus titulares. Es una decisión de la junta y no se negocia.
+- El presupuesto de inversión para 2027 es de COP 1.200 millones, con un equipo de tres desarrolladores.
+- El agregador de distribución se mantiene hasta que termine su contrato en 2028.
+- Los datos personales y bancarios de artistas y compradores de beats se tratan bajo la Ley 1581 de 2012.
+
+## Metas del negocio
+
+| Meta | Línea base | Objetivo a diciembre de 2027 |
+| :--- | :---: | :---: |
+| Días hábiles para liquidar un trimestre | 34 | 10 |
+| Estados de cuenta con reclamo por porcentajes | 6 % | Menos del 1 % |
+| Obras del catálogo activo con estado de autorización para IA conocido | 0 % | 100 % |
+| Grabaciones con ISWC vinculado | 89 % | 99 % |
+
+## Decisiones que la propuesta debe resolver
+
+1. Cuál es el sistema de registro de los derechos: quién es titular de qué, en qué territorio, para qué usos y con qué autorización para IA.
+2. Cómo se entrega el catálogo a una plataforma de IA sin perder el control sobre él (API, entregas por lotes o entorno controlado), y cómo se recibe y valida el reporte de uso.
+3. Qué se hace con el libro de regalías: un motor propio, un producto de mercado o una combinación.
+4. Cómo se registra la procedencia de cada pista nueva: creación humana, asistida por IA o generada.
+5. Cómo se garantiza que una licencia exclusiva de un beat se venda una sola vez.
+
+## Fuentes consultadas
+
+::: {.referencias}
+
+Cloud Security Alliance. (2026a, 29 de julio). *EU AI Act Article 50: Transparency obligations take effect*. <https://labs.cloudsecurityalliance.org/research/csa-research-note-eu-ai-act-article-50-transparency-20260729/>
+
+Cloud Security Alliance. (2026b, 21 de septiembre). *EU AI Act watermarking grace period ends December 2026*. <https://labs.cloudsecurityalliance.org/research/csa-research-note-eu-ai-act-article50-watermarking-deadline/>
+
+Dirección Nacional de Derecho de Autor. (s. f.). *Pronunciamientos sobre IA*. <https://www.derechodeautor.gov.co/es/pronunciamientos-sobre-ia>
+
+Gibson Dunn. (2026, 27 de mayo). *EU AI Act Omnibus agreement: Postponed high-risk deadlines and other key changes*. <https://www.gibsondunn.com/eu-ai-act-omnibus-agreement-postponed-high-risk-deadlines-and-other-key-changes/>
+
+Shulman, M. (2026, 9 de septiembre). *Introducing v6*. Suno. <https://suno.com/blog/introducing-v6>
+
+Universal Music Group. (2025, 29 de octubre). *Universal Music Group and Udio announce Udio's first strategic agreements for new licensed AI music creation platform* [Comunicado de prensa]. <https://www.universalmusic.com/universal-music-group-and-udio-announce-udios-first-strategic-agreements-for-new-licensed-ai-music-creation-platform/>
+
+Warner Music Group. (2025, 25 de noviembre). *Warner Music Group and Suno forge groundbreaking partnership* [Comunicado de prensa]. <https://www.wmg.com/news/warner-music-group-and-suno-forge-groundbreaking-partnership>
+
+:::
